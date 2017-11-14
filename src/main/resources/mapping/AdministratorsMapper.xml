@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.xiaohan.ssm.dao.AdministratorsDao">
+    <select id="selectAdministrators" parameterType="string" resultType="priv.xiaohan.ssm.model.Administrators">
+        select UserName,Password from bst_system_administrator where userName=#{UserName}
+    </select>
+
+    <insert id="addJobTime" parameterType="priv.xiaohan.ssm.model.JobTime" useGeneratedKeys="true">
+        insert into bst_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate)
+        values (#{companyName},#{jobName},#{mans},#{salary},#{salaryType},#{workPlaceName},#{address},#{jobDesc},#{workTime},#{linkMan},#{mobilePhone},#{updateDate})
+
+    </insert>
+
+    <update id="upDateJobTime" parameterType="priv.xiaohan.ssm.model.JobTimes">
+        update bst_company_plurality
+        set CompanyName = #{companyName,jdbcType=VARCHAR},
+        JobName = #{jobName,jdbcType=VARCHAR},
+        Mans = #{mans,jdbcType=INTEGER},
+        SalaryType = #{salaryType,jdbcType=VARCHAR},
+        Salary = #{salary,jdbcType=INTEGER},
+        Address = #{address,jdbcType=VARCHAR},
+        WorkPlaceName = #{workPlaceName,jdbcType=VARCHAR},
+        JobDesc = #{jobDesc,jdbcType=VARCHAR},
+        WorkTime = #{workTime,jdbcType=VARCHAR},
+        LinkMan = #{linkMan,jdbcType=VARCHAR},
+        MobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+        UpdateDate = #{updateDate,jdbcType=VARCHAR}
+        where JID = #{jId,jdbcType=INTEGER}
+    </update>
+
+    <update id="auditingUpdateJobFair" parameterType="priv.xiaohan.ssm.model.JobTimes">
+        update bst_auditing_company_plurality
+        set CompanyName = #{companyName,jdbcType=VARCHAR},
+        JobName = #{jobName,jdbcType=VARCHAR},
+        Mans = #{mans,jdbcType=INTEGER},
+        SalaryType = #{salaryType,jdbcType=VARCHAR},
+        Salary = #{salary,jdbcType=INTEGER},
+        Address = #{address,jdbcType=VARCHAR},
+        WorkPlaceName = #{workPlaceName,jdbcType=VARCHAR},
+        JobDesc = #{jobDesc,jdbcType=VARCHAR},
+        WorkTime = #{workTime,jdbcType=VARCHAR},
+        LinkMan = #{linkMan,jdbcType=VARCHAR},
+        MobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+        UpdateDate = #{updateDate,jdbcType=VARCHAR}
+        where JID = #{jId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteJobTime" parameterType="java.lang.Integer">
+        delete from bst_company_plurality
+        where JID=#{JID}
+    </delete>
+    
+    <delete id="deleteJobTimeList" parameterType="java.util.List">
+        delete from bst_company_plurality
+        where JID in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+           #{IDd}
+        </foreach>
+    </delete>
+
+    <delete id="auditingDeleteJobFairList" parameterType="java.util.List">
+        delete from bst_auditing_company_plurality
+        where JID in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </delete>
+
+    <insert id="addSummerJob" parameterType="priv.xiaohan.ssm.model.SummerJob" useGeneratedKeys="true">
+         insert into bst_company_summerjob(CompanyName,JobName,Mans,Salary,WorkPlaceName,Address,JobDesc,LinkMan,MobilePhone,UpdateDate)
+        values (#{companyName},#{jobName},#{mans},#{salary},#{workPlaceName},#{address},#{jobDesc},#{linkMan},#{mobilePhone},#{updateDate})
+    </insert>
+
+    <update id="upDateSummerJob" parameterType="priv.xiaohan.ssm.model.SummerJob">
+        update bst_company_summerjob
+        set CompanyName = #{companyName,jdbcType=VARCHAR},
+        JobName = #{jobName,jdbcType=VARCHAR},
+        Mans = #{mans,jdbcType=INTEGER},
+        Salary = #{salary,jdbcType=INTEGER},
+        Address = #{address,jdbcType=VARCHAR},
+        WorkPlaceName = #{workPlaceName,jdbcType=VARCHAR},
+        JobDesc = #{jobDesc,jdbcType=VARCHAR},
+        LinkMan = #{linkMan,jdbcType=VARCHAR},
+        MobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+        UpdateDate = #{updateDate,jdbcType=VARCHAR}
+        where SID = #{sId,jdbcType=INTEGER}
+    </update>
+
+    <update id="auditingUpdateSummerJob" parameterType="priv.xiaohan.ssm.model.SummerJob">
+        update bst_auditing_company_summerjob
+        set CompanyName = #{companyName,jdbcType=VARCHAR},
+        JobName = #{jobName,jdbcType=VARCHAR},
+        Mans = #{mans,jdbcType=INTEGER},
+        Salary = #{salary,jdbcType=INTEGER},
+        Address = #{address,jdbcType=VARCHAR},
+        WorkPlaceName = #{workPlaceName,jdbcType=VARCHAR},
+        JobDesc = #{jobDesc,jdbcType=VARCHAR},
+        LinkMan = #{linkMan,jdbcType=VARCHAR},
+        MobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+        UpdateDate = #{updateDate,jdbcType=VARCHAR}
+        where SID = #{sId,jdbcType=INTEGER}
+
+    </update>
+
+    <delete id="deleteSummerJob" parameterType="java.lang.Integer">
+        delete from bst_company_summerjob
+        where SID=#{JID}
+    </delete>
+
+    <delete id="auditingDeleteSummerJob" parameterType="java.lang.Integer">
+        delete from bst_auditing_company_summerjob
+        where SID=#{JID}
+    </delete>
+
+    <delete id="auditingDeleteJobFair" parameterType="java.lang.Integer">
+        delete from bst_auditing_company_plurality
+        where JID=#{JID}
+    </delete>
+
+    <delete id="deleteSummerJobList" parameterType="java.util.List">
+        delete from bst_company_summerjob
+        where SID in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </delete>
+
+    <delete id="auditingDeleteSummerJobList" parameterType="java.util.List">
+        delete from bst_auditing_company_summerjob
+        where SID in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </delete>
+
+    <resultMap id="SummerJobList" type="priv.xiaohan.ssm.model.BeeSummerJob">
+        <collection property="SummerJobBeans" ofType="priv.xiaohan.ssm.model.BeeSummerJob$BeeSummerJobBean">
+            <result property="companyName" column="CompanyName"/>
+            <result property="jobName" column="JobName"/>
+            <result property="manS" column="Mans"/>
+            <result property="workPlaceName" column="WorkPlaceName"/>
+            <result property="jobDesc" column="JobDesc"/>
+            <result property="linkMan" column="LinkMan"/>
+            <result property="mobilePhone" column="MobilePhone"/>
+            <result property="address" column="Address"/>
+            <result property="salary" column="Salary"/>
+            <result property="updateDate" column="UpdateDate"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAuditingSummerJobList" resultMap="SummerJobList" parameterType="java.util.List">
+        select * from bst_auditing_company_summerjob
+        where SID in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </select>
+
+    <resultMap id="BeeJobTime" type="priv.xiaohan.ssm.model.BeeJobTime">
+        <collection property="jobTimeBeans" ofType="priv.xiaohan.ssm.model.BeeJobTime$BeeJobTimeBean">
+            <result property="jId" column="JID"/>
+            <result property="companyName" column="CompanyName"/>
+            <result property="jobName" column="JobName"/>
+            <result property="mans" column="Mans"/>
+            <result property="salary" column="Salary"/>
+            <result property="salaryType" column="SalaryType"/>
+            <result property="workPlaceName" column="WorkPlaceName"/>
+            <result property="address" column="Address"/>
+            <result property="jobDesc" column="JobDesc"/>
+            <result property="workTime" column="WorkTime"/>
+            <result property="linkMan" column="LinkMan"/>
+            <result property="mobilePhone" column="MobilePhone"/>
+            <result property="updateDate" column="UpdateDate"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAuditingJobFairList" resultMap="BeeJobTime" parameterType="java.util.List">
+        select * from bst_auditing_company_plurality
+        where JID in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </select>
+
+    <insert id="insertAuditingSummerJobList" parameterType="java.util.List" >
+        insert into bst_company_summerjob(CompanyName,JobName,Mans,WorkPlaceName,JobDesc,LinkMan,MobilePhone,Address,Salary,UpdateDate)
+        values
+        <foreach collection="beeSummerJobBeans" item="item" index="index" separator="," >
+            (#{item.companyName},#{item.jobName},#{item.manS},#{item.workPlaceName},#{item.jobDesc},#{item.linkMan},#{item.mobilePhone},#{item.address},#{item.salary},#{item.updateDate})
+        </foreach>
+    </insert>
+
+    <insert id="insertAuditingJobFairList" parameterType="java.util.List" >
+        insert into bst_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate)
+        values
+        <foreach collection="beeJobTimeBeans" item="item" index="index" separator="," >
+            (#{item.companyName},#{item.jobName},#{item.mans},#{item.salary},#{item.salaryType},#{item.workPlaceName},#{item.address},#{item.jobDesc},#{item.workTime},#{item.linkMan},#{item.mobilePhone},#{item.updateDate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteFairJobOffer" parameterType="java.lang.Integer">
+        delete from bst_jobfair_user
+        where UserId=#{JID}
+    </delete>
+
+    <delete id="deleteSummerJobOffer" parameterType="java.lang.Integer">
+        delete from bst_summerjob_user
+        where UserId=#{JID}
+    </delete>
+
+    <delete id="deleteOfferList" parameterType="java.util.List">
+        delete from bst_company_user
+        where UserId in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </delete>
+
+    <insert id="addAdmin" parameterType="priv.xiaohan.ssm.model.AdministratorsS" useGeneratedKeys="true">
+        insert into bst_system_administrator(UserName,Password)
+        values (#{userName},#{passWord})
+    </insert>
+
+    <update id="reviseAdmin" parameterType="priv.xiaohan.ssm.model.AdministratorsS">
+        update bst_system_administrator
+        set PassWord = #{passWord}
+        where ID = #{id}
+    </update>
+    <delete id="deleteAdmin" parameterType="java.lang.Integer">
+        delete from bst_system_administrator
+        where ID=#{JID}
+    </delete>
+</mapper>
