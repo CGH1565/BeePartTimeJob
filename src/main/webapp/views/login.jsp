@@ -16,7 +16,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>蜜蜂兼职管理系统</title>
+    <title>旺旺兼职管理系统</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/login.css">
@@ -84,7 +84,7 @@
             contentType: "application/json",
             success:function (data) {
                 if(data=="true"){
-                    window.location.href="/views/job-time.jsp";
+                    window.location.href="/views/index.jsp";
                 }else if(data=="false"){
                     alert("登陆失败，用户名或密码错误！！");loginform.userName.focus();return false;
                 }
@@ -92,7 +92,7 @@
             error:function(){
                 alert("服务器出错！！") }
         })
-    }
+   }
 
 </script>
 </body>

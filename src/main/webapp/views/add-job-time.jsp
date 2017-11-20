@@ -16,7 +16,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>添加职位 -蜜蜂兼职管理系统</title>
+    <title>添加职位 -旺旺兼职管理系统</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/font-awesome.min.css">
@@ -76,6 +76,9 @@
     <div class="row">
         <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
             <ul class="nav nav-sidebar">
+                <li><a href="index.jsp">主面板</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
                 <li class="active"><a href="job-time.jsp">兼职管理</a></li>
                 <li><a href="summer-job.jsp">暑期工管理</a></li>
                 <li><a href="jobfair-user.jsp">兼职应聘管理</a></li>
@@ -90,7 +93,7 @@
                         <li><a href="#">管理用户组</a></li>
                         <li><a href="Admin-user.jsp">管理用户</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="loginlog.jsp">管理登录日志</a></li>
+                        <li><a href="#">管理登录日志</a></li>
                     </ul>
                 </li>
             </ul>

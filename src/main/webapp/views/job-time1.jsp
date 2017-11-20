@@ -15,7 +15,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>兼职管理 - 蜜蜂兼职管理系统</title>
+    <title>兼职管理 - 旺旺兼职管理系统</title>
     <link rel="stylesheet" href="<%=basePath%>/css/bootstrapv3.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css">
@@ -87,7 +87,7 @@
                         <li><a href="#">管理用户组</a></li>
                         <li><a href="Admin-user.jsp">管理用户</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="loginlog.html">管理登录日志</a></li>
+                        <li><a href="#">管理登录日志</a></li>
                     </ul>
                 </li>
             </ul>
