@@ -84,7 +84,7 @@
             contentType: "application/json",
             success:function (data) {
                 if(data=="true"){
-                    window.location.href="/views/index.jsp";
+                    window.location.href="/views/job-time1.jsp";
                 }else if(data=="false"){
                     alert("登陆失败，用户名或密码错误！！");loginform.userName.focus();return false;
                 }

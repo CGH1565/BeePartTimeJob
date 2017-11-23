@@ -16,27 +16,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>兼职管理 - 旺旺兼职管理系统</title>
-    <link rel="stylesheet" href="<%=basePath%>/css/bootstrapv3.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/login.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/font-awesome.min.css">
-    <link rel="apple-touch-icon-precomposed" href="<%=basePath%>images/logo2.jpg">
-    <link rel="shortcut icon" href="<%=basePath%>images/logo2.jpg">
-    <script src="<%=basePath%>/js/bootstrap.js"></script>
-    <script src="<%=basePath%>/js/jquery-2.1.4.min.js"></script>
-    <!--[if gte IE 9]>
-    <script src="<%=basePath%>js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>js/html5shiv.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>js/respond.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>js/selectivizr-min.js" type="text/javascript"></script>
+    <script src="<%=basePath%>js/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="<%=basePath%>js/bootstrap-paginator.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="<%=basePath%>/images/logo2.jpg">
+    <link rel="shortcut icon" href="<%=basePath%>/images/logo2.jpg">
+    <script src="<%=basePath%>/js/bootstrap.js"></script>
+    <!--[if gte IE 9]>
+    <script src="<%=basePath%>/js/html5shiv.min.js" type="text/javascript"></script>
+    <script src="<%=basePath%>/js/respond.min.js" type="text/javascript"></script>
+    <script src="<%=basePath%>/js/selectivizr-min.js" type="text/javascript"></script>
     <![endif]-->
     <!--[if lt IE 9]>
     <script>window.location.href = 'upgrade-browser.html';</script>
     <![endif]-->
 </head>
 
-<body class="user-select" onload="seri()">
+<body class="user-select">
 <section class="container-fluid">
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -105,7 +104,7 @@
                 <footer class="message_footer">
                     <nav>
                         <div class="btn-toolbar operation" role="toolbar">
-                            <div class="btn-group" role="group"><a class="btn btn-default" onClick="select()">全选</a> <a
+                            <div class="btn-group" role="group"><a class="btn btn-default" onClick="seri()">全选</a> <a
                                     class="btn btn-default" onClick="reverse()">反选</a> <a class="btn btn-default"
                                                                                           onClick="noselect()">不选</a>
                             </div>
@@ -114,11 +113,10 @@
                                         data-placement="bottom" title="删除全部选中" name="checkbox_delete">删除
                                 </button>
                             </div>
-                            <div id="example">
-                                <ul id="pageLimit"></ul>
-                            </div>
                         </div>
                     </nav>
+                    <div id="pageLimit">
+                    </div>
                 </footer>
             </form>
         </div>
@@ -249,7 +247,7 @@
 </div>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/admin-scripts.js"></script>
-<script>
+<script type="text/javascript">
     $(".deletes").click(function () {
         var name = $(this);
         var id = name.attr("rel"); //对应id
@@ -356,47 +354,35 @@
                         '<td>3</td>' +
                         '<td>4e</td>' +
                         '<td>5</td>' +
-                        '<td><a name="see" rel="1" href="see-job-time.jsp" draggable="false">查看</a>' + " " +
+                        '<td><a name="see" rel="1" href="see-job-time.jsp" draggable="false">查看</a>' + ' ' +
                         '<a rel="1" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
                         '</td></tr></table>';
-                    {
-                        currentPage:1,
-                            totalPages
-                    :
-                        10,
-                            size
-                    :
-                        "normal",
-                            bootstrapMajorVersion
-                    :
-                        3,
-                            alignment
-                    :
-                        "right",
-                            numberOfPages
-                    :
-                        5,
-                            itemTexts
-                    :
-                        function (type, page, current) {
-                            switch (type) {
-                                case "first":
-                                    return "首页";
-                                case "prev":
-                                    return "上一页";
-                                case "next":
-                                    return "下一页";
-                                case "last":
-                                    return "末页";
-                                case "page":
-                                    return page;
-                            }
-                        }
-                    }
                 }
             }
         })
     }
+
+    var options = {
+        currentPage: 1,
+        totalPages: 10,
+        numberOfPages: 5,
+        bootstrapMajorVersion: 1,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        }
+    }
+    $('#pageLimit').bootstrapPaginator(options);
 
 
 </script>

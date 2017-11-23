@@ -2,6 +2,8 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="org.apache.ibatis.jdbc.SQL" %>
+<%@ page import="com.mysql.jdbc.Driver" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -117,6 +119,7 @@
                         </tr>
                         </thead>
                         <%
+                            Class.forName("com.mysql.jdbc.Driver");
                             //数据库用户名
                             String userName = "admin";
                             //密码
