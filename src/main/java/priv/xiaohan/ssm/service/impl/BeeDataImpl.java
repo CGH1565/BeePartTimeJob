@@ -20,6 +20,18 @@ public class BeeDataImpl implements BeeDataService{
     }
 
     @Override
+    public BeeJobTimes getBeeJobTimes(int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+           startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageIndex * pageSize;
+        return beeDataDao.getBeeJobTimes(startIndex,endAmount);
+    }
+
+    @Override
     public BeeSummerJob getBeeSummerJob() {
         return beeDataDao.getBeeSummerJob();
     }

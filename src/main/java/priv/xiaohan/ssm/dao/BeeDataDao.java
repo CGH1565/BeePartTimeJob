@@ -1,5 +1,6 @@
 package priv.xiaohan.ssm.dao;
 
+import org.apache.ibatis.annotations.Param;
 import priv.xiaohan.ssm.model.*;
 
 /**
@@ -9,6 +10,9 @@ public interface BeeDataDao {
 
     /*获取兼职数据*/
     BeeJobTime getBeeJobTime();
+
+    /*分页获取兼职数据*/
+    BeeJobTimes getBeeJobTimes(@Param("startIndex") int startIndex, @Param("endAmount") int endAmount);
 
     /*获取暑期工数据*/
     BeeSummerJob getBeeSummerJob();

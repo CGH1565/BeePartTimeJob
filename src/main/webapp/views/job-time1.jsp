@@ -1,7 +1,3 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -98,13 +94,14 @@
                     <li><a href="add-job-time.jsp">添加职位</a></li>
                 </ol>
                 <h1 class="page-header">兼职管理&nbsp;<span class="badge">1</span></h1>
-                <div class="table-responsive" id="tables">
-
+                <div class="table-responsive">
+                    <table id="tables" class="table table-striped table-hover">
+                    </table>
                 </div>
                 <footer class="message_footer">
                     <nav>
                         <div class="btn-toolbar operation" role="toolbar">
-                            <div class="btn-group" role="group"><a class="btn btn-default" onClick="seri()">全选</a> <a
+                            <div class="btn-group" role="group"><a class="btn btn-default" onClick="select()">全选</a> <a
                                     class="btn btn-default" onClick="reverse()">反选</a> <a class="btn btn-default"
                                                                                           onClick="noselect()">不选</a>
                             </div>
@@ -248,6 +245,67 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/admin-scripts.js"></script>
 <script type="text/javascript">
+    seri();
+    function seri() {
+        var id = 1;
+        $.ajax({
+            url: "/data/getBeeJobTimes",
+            dataType: "json",
+            type: "POST",
+            data: "page=" + id,
+            success: function (data) {
+                if (data != null) {
+                    $("#tables").append('<thead><tr>' +
+                        '<th><span class="glyphicon glyphicon-th-large"><span class="visible-lg">选择</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">兼职职位</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">公司名称</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">薪资</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">结算</span></th>' +
+                        '<th><span class="glyphicon glyphicon-time "></span> <span class="visible-lg">更新日期</span></th>' +
+                        '<th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span></th>' +
+                        '</tr></thead>');
+                    result = data.jobFairList.jobTimeBeans;
+                    for (var item in result) {
+                        trs = '<tr>' +
+                            '<td><input type="checkbox" class="input-control" name="checkboxs" value="1"/></td>' +
+                            '<td>' + result[item].jobName + '</td>' +
+                            '<td>' + result[item].companyName + '</td>' +
+                            '<td>' + result[item].salary + '</td>' +
+                            '<td>' + result[item].salaryType + '</td>' +
+                            '<td>' + result[item].updateDate + '</td>' +
+                            '<td><a name="sees" rel="sees" class="sees" id="sees" draggable="false" href="see-job-time.jsp?id=' + result[item].jId + '">查看</a>' + ' ' +
+                            '<a rel="" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
+                            '</td></tr>';
+                        $("#tables").append(trs);
+                    }
+                }
+            }
+        })
+    }
+
+    var options = {
+        currentPage: 1,
+        totalPages: 10,
+        numberOfPages: 5,
+        bootstrapMajorVersion: 1,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        }
+    }
+    $('#pageLimit').bootstrapPaginator(options);
+
+
     $(".deletes").click(function () {
         var name = $(this);
         var id = name.attr("rel"); //对应id
@@ -332,58 +390,6 @@
             window.location.href = "/views/login.jsp";
         }
     }
-
-    function seri() {
-        $.ajax({
-            url: "/data/getBeeJobTime",
-            dataType: "json",
-            success: function (data) {
-                if (data != null) {
-                    var obj = document.getElementById("tables");
-                    obj.innerHTML = '<table class="table table-striped table-hover"><thead><tr>' +
-                        '<th><span class="glyphicon glyphicon-th-large"><span class="visible-lg">选择</span></th>' +
-                        '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">兼职职位</span></th>' +
-                        '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">薪资</span></th>' +
-                        '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">结算</span></th>' +
-                        '<th><span class="glyphicon glyphicon-time "></span> <span class="visible-lg">更新日期</span></th>' +
-                        '<th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span></th>' +
-                        '</tr></thead>' +
-                        '<tr>' +
-                        '<td><input type="checkbox" class="input-control" name="checkboxs" value="1"/></td>' +
-                        '<td>2</td>' +
-                        '<td>3</td>' +
-                        '<td>4e</td>' +
-                        '<td>5</td>' +
-                        '<td><a name="see" rel="1" href="see-job-time.jsp" draggable="false">查看</a>' + ' ' +
-                        '<a rel="1" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
-                        '</td></tr></table>';
-                }
-            }
-        })
-    }
-
-    var options = {
-        currentPage: 1,
-        totalPages: 10,
-        numberOfPages: 5,
-        bootstrapMajorVersion: 1,
-        itemTexts: function (type, page, current) {
-            switch (type) {
-                case "first":
-                    return "首页";
-                case "prev":
-                    return "上一页";
-                case "next":
-                    return "下一页";
-                case "last":
-                    return "末页";
-                case "page":
-                    return page;
-            }
-        }
-    }
-    $('#pageLimit').bootstrapPaginator(options);
-
 
 </script>
 </body>

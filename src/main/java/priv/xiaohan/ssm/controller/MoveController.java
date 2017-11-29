@@ -25,6 +25,8 @@ public class MoveController {
 
     public BeeJobTime beeJobTime;
 
+    public BeeJobTimes beeJobTimes;
+
     public BeeSummerJob beeSummerJob;
 
     public BeeJobTimeDetailed beeJobTimeDetailed;
@@ -43,6 +45,30 @@ public class MoveController {
         return FairListBaseResponse.createSuccessResp(beeJobTime);
     }
 
+    /*分页获取兼职数据*/
+    @RequestMapping(value="/getBeeJobTimes",method = RequestMethod.POST)
+    @ResponseBody
+    public FairListBaseResponse getBeeJobTimes(int page){
+        try{
+            int pageIndex = page;
+            int pageSize = 4;
+            int rowCount = 0;
+            int pages = 0;
+            beeJobTime = beeDataService.getBeeJobTime();
+            rowCount = beeJobTime.getJobTimeBeans().size();
+            if(rowCount%pageSize != 0){
+                pages = rowCount/pageSize+1;
+            }else{
+                pages = rowCount/pageSize;
+            }
+            beeJobTimes = beeDataService.getBeeJobTimes(pageIndex,pageSize);
+            beeJobTimes.setPages(pages);
+            beeJobTimes.toString();
+        }catch (ServiceException e){
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(beeJobTimes);
+    }
     /*获取暑期工数据*/
     @RequestMapping(value = "/getBeeSummerJob",method = RequestMethod.GET)
     @ResponseBody

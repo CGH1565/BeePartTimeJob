@@ -9,6 +9,9 @@ public interface BeeDataService {
     /*获取兼职数据*/
     BeeJobTime getBeeJobTime();
 
+    /*分页获取兼职数据*/
+    BeeJobTimes getBeeJobTimes(int pageIndex,int pageSize);
+
     /*获取暑期工数据*/
     BeeSummerJob getBeeSummerJob();
 

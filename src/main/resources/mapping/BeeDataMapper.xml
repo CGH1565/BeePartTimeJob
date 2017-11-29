@@ -3,7 +3,24 @@
 <mapper namespace="priv.xiaohan.ssm.dao.BeeDataDao">
 
     <resultMap id="BeeJobTime" type="priv.xiaohan.ssm.model.BeeJobTime">
-        <collection property="jobTimeBeans" ofType="priv.xiaohan.ssm.model.BeeJobTime$BeeJobTimeBean">
+    <collection property="jobTimeBeans" ofType="priv.xiaohan.ssm.model.BeeJobTime$BeeJobTimeBean">
+        <result property="jId" column="JID"/>
+        <result property="companyName" column="CompanyName"/>
+        <result property="jobName" column="JobName"/>
+        <result property="mans" column="Mans"/>
+        <result property="salary" column="Salary"/>
+        <result property="salaryType" column="SalaryType"/>
+        <result property="workPlaceName" column="WorkPlaceName"/>
+        <result property="address" column="Address"/>
+        <result property="jobDesc" column="JobDesc"/>
+        <result property="workTime" column="WorkTime"/>
+        <result property="linkMan" column="LinkMan"/>
+        <result property="mobilePhone" column="MobilePhone"/>
+        <result property="updateDate" column="UpdateDate"/>
+    </collection>
+</resultMap>
+    <resultMap id="BeeJobTimes" type="priv.xiaohan.ssm.model.BeeJobTimes">
+        <collection property="jobTimeBeans" ofType="priv.xiaohan.ssm.model.BeeJobTimes$BeeJobTimeBean">
             <result property="jId" column="JID"/>
             <result property="companyName" column="CompanyName"/>
             <result property="jobName" column="JobName"/>
@@ -19,6 +36,7 @@
             <result property="updateDate" column="UpdateDate"/>
         </collection>
     </resultMap>
+
     <resultMap id="BeeSummerJob" type="priv.xiaohan.ssm.model.BeeSummerJob">
         <collection property="SummerJobBeans" ofType="priv.xiaohan.ssm.model.BeeSummerJob$BeeSummerJobBean">
             <result property="sId" column="SID"/>
@@ -40,6 +58,9 @@
         select * from bst_company_plurality order by  UpdateDate DESC
     </select>
 
+    <select id="getBeeJobTimes" resultMap="BeeJobTimes">
+        select * from bst_company_plurality LIMIT #{startIndex},#{endAmount}
+    </select>
 
     <select id="getBeeSummerJob" resultMap="BeeSummerJob">
         select * from bst_company_summerjob order by UpdateDate DESC
