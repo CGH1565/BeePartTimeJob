@@ -109,13 +109,15 @@
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">选择</span></th>
+                            <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">选择</span>
+                            </th>
                             <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">兼职职位</span></th>
                             <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">公司名称</span></th>
                             <th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">薪资</span></th>
                             <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">结算</span></th>
                             <th><span class="glyphicon glyphicon-time"></span> <span class="visible-lg">更新日期</span></th>
-                            <th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span></th>
+                            <th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span>
+                            </th>
                         </tr>
                         </thead>
                         <%
@@ -133,15 +135,16 @@
                                     + userName + "&password=" + userPasswd;
                             Connection connection = DriverManager.getConnection(url);
                             Statement statement = connection.createStatement();
-                            String sql = "SELECT * FROM " + tableName + " order by updateDate DESC " ;
+                            String sql = "SELECT * FROM " + tableName + " order by updateDate DESC ";
                             ResultSet rs = statement.executeQuery(sql);
                         %>
                         <%
-                            while (rs.next()){
+                            while (rs.next()) {
                         %>
                         <tr>
-                            <td><input type="checkbox" class="input-control" name="checkboxs" value="<%out.print(rs.getString(1));%>"/></td>
-                            <td> <% out.print(rs.getString(2));%></td>
+                            <td><input type="checkbox" class="input-control" name="checkboxs"
+                                       value="<%out.print(rs.getString(1));%>"/></td>
+                            <td><% out.print(rs.getString(2));%></td>
                             <td><% out.print(rs.getString(3));%></td>
                             <td><% out.print(rs.getString(6));%></td>
                             <td><% out.print(rs.getString(7));%></td>
@@ -151,7 +154,7 @@
                                     rel="<%out.print(rs.getString(1));%>" name="deletes" id="deletes"
                                     class="deletes">删除</a></td>
                         </tr>
-                        <%  } %>
+                        <% } %>
                     </table>
                     <%
                         rs.close();

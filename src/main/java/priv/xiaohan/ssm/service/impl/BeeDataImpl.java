@@ -27,7 +27,7 @@ public class BeeDataImpl implements BeeDataService{
         }else{
            startIndex = (pageIndex-1) * pageSize;
         }
-        int endAmount = pageIndex * pageSize;
+        int endAmount = pageSize;
         return beeDataDao.getBeeJobTimes(startIndex,endAmount);
     }
 

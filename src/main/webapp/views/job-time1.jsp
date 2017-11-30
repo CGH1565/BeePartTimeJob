@@ -13,22 +13,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>兼职管理 - 旺旺兼职管理系统</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/login.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
+
     <script src="<%=basePath%>js/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="<%=basePath%>js/bootstrap-paginator.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/font-awesome.min.css">
     <link rel="apple-touch-icon-precomposed" href="<%=basePath%>/images/logo2.jpg">
     <link rel="shortcut icon" href="<%=basePath%>/images/logo2.jpg">
     <script src="<%=basePath%>/js/bootstrap.js"></script>
-    <!--[if gte IE 9]>
-    <script src="<%=basePath%>/js/html5shiv.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/js/respond.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/js/selectivizr-min.js" type="text/javascript"></script>
-    <![endif]-->
-    <!--[if lt IE 9]>
-    <script>window.location.href = 'upgrade-browser.html';</script>
-    <![endif]-->
 </head>
 
 <body class="user-select">
@@ -254,6 +247,7 @@
             type: "POST",
             data: "page=" + id,
             success: function (data) {
+                data.jobFairList
                 if (data != null) {
                     $("#tables").append('<thead><tr>' +
                         '<th><span class="glyphicon glyphicon-th-large"><span class="visible-lg">选择</span></th>' +
@@ -273,43 +267,78 @@
                             '<td>' + result[item].salary + '</td>' +
                             '<td>' + result[item].salaryType + '</td>' +
                             '<td>' + result[item].updateDate + '</td>' +
-                            '<td><a name="sees" rel="sees" class="sees" id="sees" draggable="false" href="see-job-time.jsp?id=' + result[item].jId + '">查看</a>' + ' ' +
-                            '<a rel="" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
+                            '<td id="d1"><a name="sees" rel="sees" class="sees" id="sees" draggable="false" href="see-job-time.jsp?id=' + result[item].jId + '">查看</a>' + ' ' +
+                            '<a rel="' + result[item].jId + '" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
                             '</td></tr>';
                         $("#tables").append(trs);
                     }
                 }
+                var page = data.jobFairList.pages;
+                var options = {
+                    currentPage: 1,
+                    totalPages: page,
+                    numberOfPages: 4,
+                    bootstrapMajorVersion: 1,
+                    itemTexts: function (type, page, current) {
+                        switch (type) {
+                            case "first":
+                                return "首页";
+                            case "prev":
+                                return "上一页";
+                            case "next":
+                                return "下一页";
+                            case "last":
+                                return "末页";
+                            case "page":
+                                return page;
+                        }
+                    },
+                    onPageClicked: function (event, originalEvent, type, page) {
+                        $.ajax({
+                            async: true,
+                            url: "/data/getBeeJobTimes",
+                            type: "POST",
+                            data: "page=" + page,
+                            dataType: "json",
+                            cache: false,
+                            success: function (data) {
+                                result = data.jobFairList.jobTimeBeans;
+                                tables = '<thead><tr>' +
+                                    '<th><span class="glyphicon glyphicon-th-large"><span class="visible-lg">选择</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">兼职职位</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">公司名称</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">薪资</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">结算</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-time "></span> <span class="visible-lg">更新日期</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span></th>' +
+                                    '</tr></thead>';
+                                for (var item in result) {
+                                    trs = '<tr>' +
+                                        '<td><input type="checkbox" class="input-control" name="checkboxs" value="1"/></td>' +
+                                        '<td>' + result[item].jobName + '</td>' +
+                                        '<td>' + result[item].companyName + '</td>' +
+                                        '<td>' + result[item].salary + '</td>' +
+                                        '<td>' + result[item].salaryType + '</td>' +
+                                        '<td>' + result[item].updateDate + '</td>' +
+                                        '<td><a name="sees" rel="sees"  id="sees" draggable="false" href="see-job-time.jsp?id=' + result[item].jId + '">查看</a>' + ' ' +
+                                        '<a rel="' + result[item].jId + '" class="deletes" name="deletes" id="deletes" draggable="false">删除</a>' +
+                                        '</td></tr>';
+                                    tables += trs;
+                                    $("#tables").html(tables);
+                                }
+                            }
+                        })
+                    }
+                }
+                $('#pageLimit').bootstrapPaginator(options);
             }
         })
     }
 
-    var options = {
-        currentPage: 1,
-        totalPages: 10,
-        numberOfPages: 5,
-        bootstrapMajorVersion: 1,
-        itemTexts: function (type, page, current) {
-            switch (type) {
-                case "first":
-                    return "首页";
-                case "prev":
-                    return "上一页";
-                case "next":
-                    return "下一页";
-                case "last":
-                    return "末页";
-                case "page":
-                    return page;
-            }
-        }
-    }
-    $('#pageLimit').bootstrapPaginator(options);
-
-
-    $(".deletes").click(function () {
-        var name = $(this);
-        var id = name.attr("rel"); //对应id
-        if (name.attr("name") === "deletes") {
+    $("#tables").delegate("a", "click", function () {
+        var name = $(this).attr("name");
+        var id = $(this).attr("rel");
+        if (name === "deletes") {
             if (window.confirm("此操作不可逆，是否确认？")) {
                 $.ajax({
                     type: "POST",
@@ -330,7 +359,7 @@
             ;
         }
         ;
-    });
+    })
 
 
     //删除

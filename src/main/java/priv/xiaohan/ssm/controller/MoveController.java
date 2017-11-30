@@ -51,12 +51,14 @@ public class MoveController {
     public FairListBaseResponse getBeeJobTimes(int page){
         try{
             int pageIndex = page;
-            int pageSize = 4;
+            int pageSize = 15;
             int rowCount = 0;
             int pages = 0;
             beeJobTime = beeDataService.getBeeJobTime();
             rowCount = beeJobTime.getJobTimeBeans().size();
-            if(rowCount%pageSize != 0){
+            if(rowCount<pageSize){
+                pages = 1;
+            }else if(rowCount%pageSize != 0){
                 pages = rowCount/pageSize+1;
             }else{
                 pages = rowCount/pageSize;
