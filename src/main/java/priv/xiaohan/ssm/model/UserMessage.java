@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by HotSauce on 2017/9/15.
  */
 public class UserMessage implements Serializable{
+    private int userId;
     private String name;
     private String companyName;
     private String jobName;
@@ -15,11 +16,14 @@ public class UserMessage implements Serializable{
     private String education;
     private String major;
     private String updateDate;
+    private int jId;
+    private int sId;
 
     public UserMessage() {
     }
 
-    public UserMessage(String name, String companyName, String jobName, String phone, char sex, int age, String education, String major, String updateDate) {
+    public UserMessage(int userId, String name, String companyName, String jobName, String phone, char sex, int age, String education, String major, String updateDate, int jId, int sId) {
+        this.userId = userId;
         this.name = name;
         this.companyName = companyName;
         this.jobName = jobName;
@@ -29,6 +33,16 @@ public class UserMessage implements Serializable{
         this.education = education;
         this.major = major;
         this.updateDate = updateDate;
+        this.jId = jId;
+        this.sId = sId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -101,5 +115,21 @@ public class UserMessage implements Serializable{
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public int getjId() {
+        return jId;
+    }
+
+    public void setjId(int jId) {
+        this.jId = jId;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
     }
 }

@@ -16,21 +16,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>兼职审核管理 - 旺旺兼职管理系统</title>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/login.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/font-awesome.min.css">
-    <link rel="apple-touch-icon-precomposed" href="<%=basePath%>images/logo2.jpg">
-    <link rel="shortcut icon" href="<%=basePath%>images/logo2.jpg">
-    <script src="<%=basePath%>js/jquery-2.1.4.min.js"></script>
-    <!--[if gte IE 9]>
-    <script src="<%=basePath%>js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>js/html5shiv.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>js/respond.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>js/selectivizr-min.js" type="text/javascript"></script>
-    <![endif]-->
-    <!--[if lt IE 9]>
-    <script>window.location.href = 'upgrade-browser.html';</script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="<%=basePath%>/images/logo2.jpg">
+    <link rel="shortcut icon" href="<%=basePath%>/images/logo2.jpg">
+    <script src="<%=basePath%>/js/bootstrap.js"></script>
+    <script src="<%=basePath%>js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="<%=basePath%>js/bootstrap-paginator.js" type="text/javascript"></script>
 </head>
 
 <body class="user-select">
@@ -55,13 +49,13 @@
                                 <li><a title="查看您的登录记录" data-toggle="modal" data-target="#seeUserLoginlog">登录记录</a></li>
                             </ul>
                         </li>
-                        <li><a href="login.jsp" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
+                        <li><a onClick="exits()">退出登录</a></li>
                         <li><a data-toggle="modal" data-target="#WeChat">帮助</a></li>
                     </ul>
                     <form action="" method="post" class="navbar-form navbar-right" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索"
-                                   maxlength="15">
+                                   maxlength="50">
                             <span class="input-group-btn">
               <button class="btn btn-default" type="submit">搜索</button>
               </span></div>
@@ -99,61 +93,9 @@
             <form action="" method="post" onsubmit="return false">
                 <h1 class="page-header">兼职审核管理&nbsp;<span class="badge">6</span></h1>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">选择</span>
-                            </th>
-                            <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">职位</span></th>
-                            <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">公司名称</span></th>
-                            <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">薪资</span></th>
-                            <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">结算</span></th>
-                            <th><span class="glyphicon glyphicon-time"></span> <span class="visible-lg">更新时间</span></th>
-                            <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">操作</span></th>
-                        </tr>
-                        </thead>
-                        <%
-                            String driverName = "com.mysql.jdbc.Driver";
-                            //数据库用户名
-                            String userName = "admin";
-                            //密码
-                            String userPasswd = "123456";
-                            //数据库名
-                            String dbName = "mfjzxcx2017";
-                            //表名
-                            String tableName = "bst_auditing_company_plurality";
-                            //联结字符串
-                            String url = "jdbc:mysql://localhost:3306/" + dbName + "?user="
-                                    + userName + "&password=" + userPasswd;
-                            Class.forName("com.mysql.jdbc.Driver").newInstance();
-                            Connection connection = DriverManager.getConnection(url);
-                            Statement statement = connection.createStatement();
-                            String sql = "SELECT * FROM " + tableName;
-                            ResultSet rs = statement.executeQuery(sql);
-                        %>
-                        <%
-                            while (rs.next()) {
-                        %>
-                        <tr>
-                            <td><input type="checkbox" class="input-control" name="checkboxs"
-                                       value="<%out.print(rs.getString(1));%>"/></td>
-                            <td><% out.print(rs.getString(2));%></td>
-                            <td><% out.print(rs.getString(3));%></td>
-                            <td><% out.print(rs.getString(6));%></td>
-                            <td><% out.print(rs.getString(7));%></td>
-                            <td><% out.print(rs.getString(14));%></td>
-                            <td><a name="see" rel="<%out.print(rs.getString(1));%>"
-                                   href="see-auditing-jobfair.jsp?id=<%out.print(rs.getString(1));%>">查看</a> <a
-                                    rel="<%out.print(rs.getString(1));%>" name="delete" id="delete"
-                                    class="delete">删除</a></td>
-                        </tr>
-                        <% } %>
+                    <table id="tables" class="table table-striped table-hover">
+
                     </table>
-                    <%
-                        rs.close();
-                        statement.close();
-                        connection.close();
-                    %>
                 </div>
                 <footer class="message_footer">
                     <nav>
@@ -175,13 +117,8 @@
                                 </button>
                             </div>
                         </div>
-                        <ul class="pagination pagenav">
-                            <li class="disabled"><a aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
-                            </li>
-                            <li class="active"><a>1</a></li>
-                            <li class="disabled"><a aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a></li>
-                        </ul>
                     </nav>
+                    <div id="pageLimit" />
                 </footer>
             </form>
         </div>
@@ -221,17 +158,17 @@
                         <tr>
                             <td wdith="20%">旧密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="old_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="50" autocomplete="off"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">新密码:</td>
-                            <td width="80%"><input type="password" class="form-control" name="password" maxlength="18"
+                            <td width="80%"><input type="password" class="form-control" name="password" maxlength="50"
                                                    autocomplete="off"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">确认密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="new_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="50" autocomplete="off"/></td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -342,11 +279,106 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/admin-scripts.js"></script>
 <script>
-    //是否确认删除
-    $(".delete").click(function () {
-        var name = $(this);
-        var id = name.attr("rel"); //对应id
-        if (name.attr("name") === "delete") {
+    seri();
+    function seri() {
+        var id = 1;
+        $.ajax({
+            url: "/data/AuditingJobFairs",
+            dataType: "json",
+            type: "POST",
+            data: "page=" + id,
+            success: function (data) {
+                if (data != null) {
+                    $("#tables").append('<thead><tr>' +
+                        '<th><span class="glyphicon glyphicon-th-large"><span class="visible-lg">选择</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">兼职职位</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">公司名称</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">薪资</span></th>' +
+                        '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">结算</span></th>' +
+                        '<th><span class="glyphicon glyphicon-time "></span> <span class="visible-lg">更新日期</span></th>' +
+                        '<th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span></th>' +
+                        '</tr></thead>');
+                    result = data.jobFairList.summerJobDetailedBeans;
+                    for (var item in result) {
+                        trs = '<tr>' +
+                            '<td><input type="checkbox" class="input-control" name="checkboxs" value="'+result[item].sId+'"/></td>' +
+                            '<td>' + result[item].jobName + '</td>' +
+                            '<td>' + result[item].companyName + '</td>' +
+                            '<td>' + result[item].salary + '</td>' +
+                            '<td>' + result[item].salaryType + '</td>' +
+                            '<td>' + result[item].updateDate + '</td>' +
+                            '<td id="d1"><a name="sees" rel="sees" class="sees" id="sees" draggable="false" href="see-auditing-jobfair.jsp?id=' + result[item].sId + '">查看</a>' + ' ' +
+                            '<a rel="' + result[item].sId + '" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
+                            '</td></tr>';
+                        $("#tables").append(trs);
+                    }
+                }
+                var page = data.jobFairList.pages;
+                var options = {
+                    currentPage: 1,
+                    totalPages: page,
+                    numberOfPages: 4,
+                    bootstrapMajorVersion: 1,
+                    itemTexts: function (type, page, current) {
+                        switch (type) {
+                            case "first":
+                                return "首页";
+                            case "prev":
+                                return "上一页";
+                            case "next":
+                                return "下一页";
+                            case "last":
+                                return "末页";
+                            case "page":
+                                return page;
+                        }
+                    },
+                    onPageClicked: function (event, originalEvent, type, page) {
+                        $.ajax({
+                            async: true,
+                            url: "/data/AuditingJobFairs",
+                            type: "POST",
+                            data: "page=" + page,
+                            dataType: "json",
+                            cache: false,
+                            success: function (data) {
+                                result = data.jobFairList.summerJobDetailedBeans;
+                                tables = '<thead><tr>' +
+                                    '<th><span class="glyphicon glyphicon-th-large"><span class="visible-lg">选择</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">兼职职位</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">公司名称</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">薪资</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-file "></span> <span class="visible-lg">结算</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-time "></span> <span class="visible-lg">更新日期</span></th>' +
+                                    '<th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">操作</span></th>' +
+                                    '</tr></thead>';
+                                for (var item in result) {
+                                    trs = '<tr>' +
+                                        '<td><input type="checkbox" class="input-control" name="checkboxs" value="'+result[item].sId+'"/></td>' +
+                                        '<td>' + result[item].jobName + '</td>' +
+                                        '<td>' + result[item].companyName + '</td>' +
+                                        '<td>' + result[item].salary + '</td>' +
+                                        '<td>' + result[item].salaryType + '</td>' +
+                                        '<td>' + result[item].updateDate + '</td>' +
+                                        '<td><a name="sees" rel="sees"  id="sees" draggable="false" href="see-auditing-jobfair.jsp?id=' + result[item].sId + '">查看</a>' + ' ' +
+                                        '<a rel="' + result[item].sId + '" class="deletes" name="deletes" id="deletes" draggable="false">删除</a>' +
+                                        '</td></tr>';
+                                    tables += trs;
+                                    $("#tables").html(tables);
+                                }
+                            }
+                        })
+                    }
+                }
+                $('#pageLimit').bootstrapPaginator(options);
+            }
+        })
+    }
+
+    $("#tables").delegate("a", "click", function () {
+        var name = $(this).attr("name");
+        var id = $(this).attr("rel");
+        if (name === "deletes") {
             if (window.confirm("此操作不可逆，是否确认？")) {
                 $.ajax({
                     type: "POST",
@@ -359,7 +391,7 @@
                             window.location.reload();
                         }
                     },
-                    error: function (data) {
+                    error: function () {
                         alert("服务器出错！！");
                     },
                 });
@@ -367,8 +399,7 @@
             ;
         }
         ;
-        return false;
-    });
+    })
 
     //删除
     checkall = document.getElementsByName("checkboxs");
@@ -459,6 +490,18 @@
             });
         }
     });
+
+    function exits() {
+        if (window.confirm("此操作不可逆，是否确认？")) {
+            $.ajax({
+                url: "/test/exit",
+                dataType: "json",
+                success: function (data) {
+                },
+            });
+            window.location.href = "login.jsp";
+        }
+    }
 </script>
 </body>
 </html>

@@ -25,13 +25,16 @@ public class MoveController {
 
     public BeeJobTime beeJobTime;
 
-    public BeeJobTimes beeJobTimes;
-
     public BeeSummerJob beeSummerJob;
 
     public BeeJobTimeDetailed beeJobTimeDetailed;
 
     public BeeSummerJobDetailed beeSummerJobDetailed;
+
+
+    private UserMessageList userMessageList;
+    private BeeSummerJobDetailedList beeSummerJobDetailedList;
+
 
     /*获取兼职数据*/
     @RequestMapping(value = "/getBeeJobTime",method = RequestMethod.GET)
@@ -50,10 +53,11 @@ public class MoveController {
     @ResponseBody
     public FairListBaseResponse getBeeJobTimes(int page){
         try{
-            int pageIndex = page;
+            int pageIndex = 0;
             int pageSize = 15;
             int rowCount = 0;
             int pages = 0;
+            pageIndex = page;
             beeJobTime = beeDataService.getBeeJobTime();
             rowCount = beeJobTime.getJobTimeBeans().size();
             if(rowCount<pageSize){
@@ -63,14 +67,41 @@ public class MoveController {
             }else{
                 pages = rowCount/pageSize;
             }
-            beeJobTimes = beeDataService.getBeeJobTimes(pageIndex,pageSize);
-            beeJobTimes.setPages(pages);
-            beeJobTimes.toString();
+            beeJobTime = beeDataService.getBeeJobTimes(pageIndex,pageSize);
+            beeJobTime.setPages(pages);
         }catch (ServiceException e){
             return FairListBaseResponse.createSysErrorResp();
         }
-        return FairListBaseResponse.createSuccessResp(beeJobTimes);
+        return FairListBaseResponse.createSuccessResp(beeJobTime);
     }
+
+    /*分页获取暑期工数据*/
+    @RequestMapping(value="/getBeeSummerJobs",method = RequestMethod.POST)
+    @ResponseBody
+    public FairListBaseResponse getBeeSummerJobs(int page){
+        try{
+            int pageIndex = 0;
+            int pageSize = 15;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            beeSummerJob = beeDataService.getBeeSummerJob();
+            rowCount = beeSummerJob.getSummerJobBeans().size();
+            if(rowCount<pageSize){
+                pages = 1;
+            }else if(rowCount%pageSize != 0){
+                pages = rowCount/pageSize+1;
+            }else{
+                pages = rowCount/pageSize;
+            }
+            beeSummerJob = beeDataService.getBeeSummerJobs(pageIndex,pageSize);
+            beeSummerJob.setPages(pages);
+        }catch (ServiceException e){
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(beeSummerJob);
+    }
+
     /*获取暑期工数据*/
     @RequestMapping(value = "/getBeeSummerJob",method = RequestMethod.GET)
     @ResponseBody
@@ -109,6 +140,84 @@ public class MoveController {
         return FairListBaseResponse.createSuccessResp(beeSummerJobDetailed);
     }
 
+    /*分页获取兼职报名信息*/
+    @RequestMapping(value="/getSignUpJobFairs",method = RequestMethod.POST)
+    @ResponseBody
+    public FairListBaseResponse getSignUpJobFairs(int page) {
+        try {
+            int pageIndex = 0;
+            int pageSize = 15;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            userMessageList = beeDataService.getSignUpJobFair();
+            rowCount = userMessageList.getUserMessageBeans().size();
+            if (rowCount < pageSize) {
+                pages = 1;
+            } else if (rowCount % pageSize != 0) {
+                pages = rowCount / pageSize + 1;
+            } else {
+                pages = rowCount / pageSize;
+            }
+            userMessageList = beeDataService.getSignUpJobFairs(pageIndex, pageSize);
+            userMessageList.setPages(pages);
+        } catch (ServiceException e) {
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(userMessageList);
+    }
+
+    /*获取兼职报名List*/
+    @RequestMapping(value = "/getSignUpJobFair",method = RequestMethod.GET)
+    @ResponseBody
+    public FairListBaseResponse getSignUpJobFair(HttpServletRequest request){
+        try{
+            userMessageList = beeDataService.getSignUpJobFair();
+        }catch (ServiceException e){
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(userMessageList);
+    }
+
+    /*分页获取兼职报名信息*/
+    @RequestMapping(value="/getSignUpSummerJobs",method = RequestMethod.POST)
+    @ResponseBody
+    public FairListBaseResponse getSignUpSummerJobs(int page) {
+        try {
+            int pageIndex = 0;
+            int pageSize = 15;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            userMessageList = beeDataService.getSignUpSummerJob();
+            rowCount = userMessageList.getUserMessageBeans().size();
+            if (rowCount < pageSize) {
+                pages = 1;
+            } else if (rowCount % pageSize != 0) {
+                pages = rowCount / pageSize + 1;
+            } else {
+                pages = rowCount / pageSize;
+            }
+            userMessageList = beeDataService.getSignUpSummerJobs(pageIndex, pageSize);
+            userMessageList.setPages(pages);
+        } catch (ServiceException e) {
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(userMessageList);
+    }
+
+    /*获取暑期工报名List*/
+    @RequestMapping(value = "/getSignUpSummerJob",method = RequestMethod.GET)
+    @ResponseBody
+    public FairListBaseResponse getSignUpSummerJob(HttpServletRequest request){
+        try{
+            userMessageList = beeDataService.getSignUpSummerJob();
+        }catch (ServiceException e){
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(userMessageList);
+    }
+
     /*兼职报名*/
     @RequestMapping(value = "/signUpJobFair",method = RequestMethod.POST)
     @ResponseBody
@@ -132,8 +241,59 @@ public class MoveController {
         }
         return FairListBaseResponse.createSuccessResp();
     }
-
-    /*暑期工发布*/
+    /*分页兼职审核信息*/
+    @RequestMapping(value="/AuditingJobFairs",method = RequestMethod.POST)
+    @ResponseBody
+    public FairListBaseResponse AuditingJobFairs(int page) {
+        try {
+            int pageIndex = 0;
+            int pageSize = 15;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            beeSummerJobDetailedList = beeDataService.AuditingJobFair();
+            rowCount = beeSummerJobDetailedList.getSummerJobDetailedBeans().size();
+            if (rowCount < pageSize) {
+                pages = 1;
+            } else if (rowCount % pageSize != 0) {
+                pages = rowCount / pageSize + 1;
+            } else {
+                pages = rowCount / pageSize;
+            }
+            beeSummerJobDetailedList = beeDataService.AuditingJobFairs(pageIndex, pageSize);
+            beeSummerJobDetailedList.setPages(pages);
+        } catch (ServiceException e) {
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(beeSummerJobDetailedList);
+    }
+    /*分页暑期工审核信息*/
+    @RequestMapping(value="/AuditingSummerJobs",method = RequestMethod.POST)
+    @ResponseBody
+    public FairListBaseResponse AuditingSummerJobs(int page) {
+        try {
+            int pageIndex = 0;
+            int pageSize = 15;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            beeSummerJobDetailedList = beeDataService.AuditingSummerJob();
+            rowCount = beeSummerJobDetailedList.getSummerJobDetailedBeans().size();
+            if (rowCount < pageSize) {
+                pages = 1;
+            } else if (rowCount % pageSize != 0) {
+                pages = rowCount / pageSize + 1;
+            } else {
+                pages = rowCount / pageSize;
+            }
+            beeSummerJobDetailedList = beeDataService.AuditingSummerJobs(pageIndex, pageSize);
+            beeSummerJobDetailedList.setPages(pages);
+        } catch (ServiceException e) {
+            return FairListBaseResponse.createSysErrorResp();
+        }
+        return FairListBaseResponse.createSuccessResp(beeSummerJobDetailedList);
+    }
+    /*暑期工、兼职发布*/
     @RequestMapping(value = "/publishSummerJob",method = RequestMethod.POST)
     @ResponseBody
     public FairListBaseResponse publishSummerJob(@RequestBody BeeSummerJobDetailed beeSummerJobDetailed){

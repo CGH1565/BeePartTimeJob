@@ -128,10 +128,18 @@ public class BeeController {
     }
 
     //应聘管理批量删除操作
-    @RequestMapping(value = "/deleteOfferList",method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteJobFairOfferList",method = RequestMethod.POST)
     @ResponseBody
-    public String deleteOfferList(@RequestBody List<String> jobtimeIDs){
-        jobTimeService.deleteOfferList(jobtimeIDs);
+    public String deleteJobFairOfferList(@RequestBody List<String> jobtimeIDs){
+        jobTimeService.deleteJobFairOfferList(jobtimeIDs);
+        return "true";
+    }
+
+    //应聘管理批量删除操作
+    @RequestMapping(value = "/deleteSummerJobOfferList",method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteSummerJobOfferList(@RequestBody List<String> jobtimeIDs){
+        jobTimeService.deleteSummerJobOfferList(jobtimeIDs);
         return "true";
     }
     /*------------------------------------------------------------------------------------------------------------------*/
@@ -233,9 +241,4 @@ public class BeeController {
         request.getSession().invalidate();
     }
 
-    //分页初始化查询
-    @RequestMapping(value = "/getData",method = RequestMethod.POST)
-    public void getData(int id){
-
-    }
 }

@@ -2,7 +2,6 @@ package priv.xiaohan.ssm.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import priv.xiaohan.ssm.model.BaseUser;
 import priv.xiaohan.ssm.model.LoginUser;
 import priv.xiaohan.ssm.model.User;
 

@@ -4,7 +4,6 @@ import jdk.nashorn.internal.parser.Token;
 import org.springframework.stereotype.Service;
 import priv.xiaohan.ssm.dao.UserDao;
 import priv.xiaohan.ssm.exception.ServiceException;
-import priv.xiaohan.ssm.model.BaseUser;
 import priv.xiaohan.ssm.model.LoginUser;
 import priv.xiaohan.ssm.model.User;
 import priv.xiaohan.ssm.service.IUserService;

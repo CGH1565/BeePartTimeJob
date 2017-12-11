@@ -208,8 +208,16 @@
         where UserId=#{JID}
     </delete>
 
-    <delete id="deleteOfferList" parameterType="java.util.List">
-        delete from bst_company_user
+    <delete id="deleteJobFairOfferList" parameterType="java.util.List">
+        delete from bst_jobfair_user
+        where UserId in
+        <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
+            #{IDd}
+        </foreach>
+    </delete>
+
+    <delete id="deleteSummerJobOfferList" parameterType="java.util.List">
+        delete from bst_summerjob_user
         where UserId in
         <foreach collection="ids" item="IDd" index="index" open="(" separator="," close=")">
             #{IDd}

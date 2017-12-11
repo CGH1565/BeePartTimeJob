@@ -23,16 +23,6 @@
     <link rel="apple-touch-icon-precomposed" href="<%=basePath%>/images/logo2.jpg">
     <link rel="shortcut icon" href="<%=basePath%>/images/logo2.jp">
     <script src="<%=basePath%>/js/jquery-2.1.4.min.js"></script>
-    <!--[if gte IE 9]>
-    <script src="<%=basePath%>/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/js/html5shiv.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/js/respond.min.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/js/selectivizr-min.js" type="text/javascript"></script>
-
-    <![endif]-->
-    <!--[if lt IE 9]>
-    <script>window.location.href = 'upgrade-browser.html';</script>
-    <![endif]-->
 </head>
 
 <body class="user-select">
@@ -57,13 +47,13 @@
                                 <li><a title="查看您的登录记录" data-toggle="modal" data-target="#seeUserLoginlog">登录记录</a></li>
                             </ul>
                         </li>
-                        <li><a href="login.jsp" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
+                        <li><a onClick="exits()">退出登录</a></li>
                         <li><a data-toggle="modal" data-target="#WeChat">帮助</a></li>
                     </ul>
                     <form action="" method="post" class="navbar-form navbar-right" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索"
-                                   maxlength="15">
+                                   maxlength="50">
                             <span class="input-group-btn">
               <button class="btn btn-default" type="submit">搜索</button>
               </span></div>
@@ -128,17 +118,17 @@
                     <tr>
                         <td width="5%">公司名称</td>
                         <td width="40%"><input type="text" value="<%out.print(rs.getString(2));%>" id="CompanyName" class="form-controls"
-                                               name="CompanyName" maxlength="15" autocomplete="off"/></td>
+                                               name="CompanyName" maxlength="50" autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">职位名:</td>
                         <td width="40%"><input type="text" value="<%out.print(rs.getString(3));%>" id="JobName" class="form-controls" name="JobName"
-                                               maxlength="15" autocomplete="off"/></td>
+                                               maxlength="50" autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">招聘人数:</td>
                         <td width="10%"><input type="text" value="<%out.print(rs.getString(4));%>" id="Mans" class="form-controls" name="Mans"
-                                               maxlength="10"
+                                               maxlength="50"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
@@ -171,17 +161,17 @@
                     </tr>
                     <tr>
                         <td width="5%">薪资水平:</td>
-                        <td><input type="text" class="form-controls"  value="<%out.print(rs.getString(6));%>" id="Salary" name="Salary" maxlength="18"
+                        <td><input type="text" class="form-controls"  value="<%out.print(rs.getString(6));%>" id="Salary" name="Salary" maxlength="50"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">工作地区:</td>
-                        <td width="40%"><input type="text"  class="form-controls" id="Address"  value="<%out.print(rs.getString(9));%>" name="Address" maxlength="18"
+                        <td width="40%"><input type="text"  class="form-controls" id="Address"  value="<%out.print(rs.getString(9));%>" name="Address" maxlength="50"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">详细地址:</td>
-                        <td width="40%"><input type="text" class="form-controls" value="<%out.print(rs.getString(8));%>" id="WorkPlaceName" name="WorkPlaceName" maxlength="18"
+                        <td width="40%"><input type="text" class="form-controls" value="<%out.print(rs.getString(8));%>" id="WorkPlaceName" name="WorkPlaceName" maxlength="50"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
@@ -192,17 +182,17 @@
                     </tr>
                     <tr>
                         <td width="5%">上班时间：</td>
-                        <td width="40%"><input type="text" class="form-controls" id="WorkTime" name="WorkTime" maxlength="18" value="<%out.print(rs.getString(11));%>"
+                        <td width="40%"><input type="text" class="form-controls" id="WorkTime" name="WorkTime" maxlength="50" value="<%out.print(rs.getString(11));%>"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">联系人:</td>
-                        <td width="40%"><input type="text" class="form-controls" id="LinkMan"name="LinkMan" maxlength="18" value="<%out.print(rs.getString(12));%>"
+                        <td width="40%"><input type="text" class="form-controls" id="LinkMan"name="LinkMan" maxlength="50" value="<%out.print(rs.getString(12));%>"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">手机号码:</td>
-                        <td width="40%"><input type="text" class="form-controls" id="MobilePhone" name="MobilePhone" maxlength="18" value="<%out.print(rs.getString(13));%>"
+                        <td width="40%"><input type="text" class="form-controls" id="MobilePhone" name="MobilePhone" maxlength="50" value="<%out.print(rs.getString(13));%>"
                                                autocomplete="off"/></td>
                     </tr>
                     <%  } %>
@@ -256,17 +246,17 @@
                         <tr>
                             <td wdith="20%">旧密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="old_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="50" autocomplete="off"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">新密码:</td>
-                            <td width="80%"><input type="password" class="form-control" name="password" maxlength="18"
+                            <td width="80%"><input type="password" class="form-control" name="password" maxlength="50"
                                                    autocomplete="off"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">确认密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="new_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="50" autocomplete="off"/></td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -317,17 +307,17 @@
                         <tr>
                             <td wdith="20%">旧密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="old_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="50" autocomplete="off"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">新密码:</td>
-                            <td width="80%"><input type="password" class="form-control" name="password" maxlength="18"
+                            <td width="80%"><input type="password" class="form-control" name="password" maxlength="50"
                                                    autocomplete="off"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">确认密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="new_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="50" autocomplete="off"/></td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -486,6 +476,17 @@
         $target.is('a') && $('#texts').text($target.text());
     })
 
+    function exits() {
+        if (window.confirm("此操作不可逆，是否确认？")) {
+            $.ajax({
+                url: "/test/exit",
+                dataType: "json",
+                success: function (data) {
+                },
+            });
+            window.location.href = "login.jsp";
+        }
+    }
 </script>
 </body>
 </html>

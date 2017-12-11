@@ -1,6 +1,5 @@
 package priv.xiaohan.ssm.service;
 
-import priv.xiaohan.ssm.model.BaseUser;
 import priv.xiaohan.ssm.model.LoginUser;
 import priv.xiaohan.ssm.model.User;
 

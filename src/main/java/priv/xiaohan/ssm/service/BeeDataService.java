@@ -10,16 +10,44 @@ public interface BeeDataService {
     BeeJobTime getBeeJobTime();
 
     /*分页获取兼职数据*/
-    BeeJobTimes getBeeJobTimes(int pageIndex,int pageSize);
+    BeeJobTime getBeeJobTimes(int pageIndex,int pageSize);
 
     /*获取暑期工数据*/
     BeeSummerJob getBeeSummerJob();
+
+    /*分页获取暑期工数据*/
+    BeeSummerJob getBeeSummerJobs(int pageIndex,int pageSize);
 
     /*根据JID获取兼职详细信息*/
     BeeJobTimeDetailed getBeeJobTimeDetailed(int jid);
 
     /*根据SID获取兼职详细信息*/
     BeeSummerJobDetailed getBeeSummerJobDetailed(int sId);
+
+    /*分页获取兼职报名信息*/
+    UserMessageList getSignUpJobFairs(int pageIndex,int pageSize);
+
+    /*获取兼职报名List*/
+    UserMessageList getSignUpJobFair();
+
+    /*获取暑期工报名List*/
+    UserMessageList getSignUpSummerJob();
+
+    /*分页获取暑期工报名信息*/
+    UserMessageList getSignUpSummerJobs(int pageIndex,int pageSize);
+
+    /*获取兼职审核信息*/
+    BeeSummerJobDetailedList AuditingJobFair();
+
+    /*分页获取兼职审核信息*/
+    BeeSummerJobDetailedList AuditingJobFairs(int pageIndex,int pageSize);
+
+    /*获取暑期工审核信息*/
+    BeeSummerJobDetailedList AuditingSummerJob();
+
+    /*分页获取暑期工审核信息*/
+    BeeSummerJobDetailedList AuditingSummerJobs(int pageIndex,int pageSize);
+
 
     /*兼职报名*/
     void putSignUpJobFair(UserMessage userMessage);

@@ -9,12 +9,13 @@ import java.util.List;
 public class BeeJobTime implements Serializable{
     public List<BeeJobTimeBean> jobTimeBeans;
 
+    public int pages;
     public static class BeeJobTimeBean {
         private int jId;
         private String companyName;
         private String jobName;
         private String mans;
-        private long salary;
+        private String salary;
         private String salaryType;
         private String workPlaceName;
         private String address;
@@ -56,11 +57,11 @@ public class BeeJobTime implements Serializable{
             this.mans = mans;
         }
 
-        public long getSalary() {
+        public String getSalary() {
             return salary;
         }
 
-        public void setSalary(long salary) {
+        public void setSalary(String salary) {
             this.salary = salary;
         }
 
@@ -127,6 +128,14 @@ public class BeeJobTime implements Serializable{
         public void setUpdateDate(String updateDate) {
             this.updateDate = updateDate;
         }
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
     public List<BeeJobTimeBean> getJobTimeBeans() {

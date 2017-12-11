@@ -20,7 +20,7 @@ public class BeeDataImpl implements BeeDataService{
     }
 
     @Override
-    public BeeJobTimes getBeeJobTimes(int pageIndex, int pageSize) {
+    public BeeJobTime getBeeJobTimes(int pageIndex, int pageSize) {
         int startIndex = 0;
         if(pageSize == 1){
             startIndex = 0;
@@ -37,6 +37,18 @@ public class BeeDataImpl implements BeeDataService{
     }
 
     @Override
+    public BeeSummerJob getBeeSummerJobs(int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.getBeeSummerJobs(startIndex,endAmount);
+    }
+
+    @Override
     public BeeJobTimeDetailed getBeeJobTimeDetailed(int jid) {
         return beeDataDao.getBeeJobTimeDetailed(jid);
     }
@@ -44,6 +56,74 @@ public class BeeDataImpl implements BeeDataService{
     @Override
     public BeeSummerJobDetailed getBeeSummerJobDetailed(int sid) {
         return beeDataDao.getSummerJobDetailed(sid);
+    }
+
+    @Override
+    public UserMessageList getSignUpJobFairs(int pageIndex,int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.getSignUpJobFairs(startIndex,endAmount);
+    }
+
+    @Override
+    public UserMessageList getSignUpJobFair() {
+        return beeDataDao.getSignUpJobFair();
+    }
+
+    @Override
+    public UserMessageList getSignUpSummerJob() {
+        return beeDataDao.getSignUpSummerJob();
+    }
+
+    @Override
+    public UserMessageList getSignUpSummerJobs(int pageIndex,int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.getSignUpSummerJobs(startIndex,endAmount);
+    }
+
+    @Override
+    public BeeSummerJobDetailedList AuditingJobFair() {
+        return beeDataDao.AuditingJobFair();
+    }
+
+    @Override
+    public BeeSummerJobDetailedList AuditingJobFairs(int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.AuditingJobFairs(startIndex,endAmount);
+    }
+
+    @Override
+    public BeeSummerJobDetailedList AuditingSummerJob() {
+        return beeDataDao.AuditingSummerJob();
+    }
+
+    @Override
+    public BeeSummerJobDetailedList AuditingSummerJobs(int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.AuditingSummerJobs(startIndex,endAmount);
     }
 
     @Override

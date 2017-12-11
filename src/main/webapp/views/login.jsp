@@ -48,7 +48,7 @@
                autocomplete="off" maxlength="10">
         <label for="userPwd" class="sr-only">密码</label>
         <input type="password" id="userPwd" name="passWord" class="form-control" placeholder="请输入密码" required
-               autocomplete="off" maxlength="18">
+               autocomplete="off" maxlength="50">
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="signinSubmit" onclick="login(this.form)" >登录
         </button>
     </form>
@@ -84,7 +84,7 @@
             contentType: "application/json",
             success:function (data) {
                 if(data=="true"){
-                    window.location.href="/views/job-time1.jsp";
+                    window.location.href="/views/index.jsp";
                 }else if(data=="false"){
                     alert("登陆失败，用户名或密码错误！！");loginform.userName.focus();return false;
                 }

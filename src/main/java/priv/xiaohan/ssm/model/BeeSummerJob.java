@@ -10,6 +10,8 @@ public class BeeSummerJob implements Serializable {
 
     public  List<BeeSummerJobBean> SummerJobBeans;
 
+    public int pages;
+
     public static class BeeSummerJobBean {
         private String sId;
         private String companyName;
@@ -124,6 +126,14 @@ public class BeeSummerJob implements Serializable {
 
     public  List<BeeSummerJobBean> getSummerJobBeans() {
         return SummerJobBeans;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
     public void setSummerJobBeans(List<BeeSummerJobBean> summerJobBeans) {

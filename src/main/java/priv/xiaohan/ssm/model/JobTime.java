@@ -9,9 +9,9 @@ public class JobTime implements Serializable{
     private int jId;
     private String companyName;
     private String jobName;
-    private int mans;
+    private String mans;
     private String salaryType;
-    private int salary;
+    private String salary;
     private String address;
     private String workPlaceName;
     private String jobDesc;
@@ -23,7 +23,7 @@ public class JobTime implements Serializable{
     public JobTime() {
     }
 
-    public JobTime(int jId, String companyName, String jobName, int mans, String salaryType, int salary, String address, String workPlaceName, String jobDesc, String workTime, String linkMan, String mobilePhone, String updateDate) {
+    public JobTime(int jId, String companyName, String jobName, String mans, String salaryType, String salary, String address, String workPlaceName, String jobDesc, String workTime, String linkMan, String mobilePhone, String updateDate) {
         this.jId = jId;
         this.companyName = companyName;
         this.jobName = jobName;
@@ -63,11 +63,11 @@ public class JobTime implements Serializable{
         this.jobName = jobName;
     }
 
-    public int getMans() {
+    public String getMans() {
         return mans;
     }
 
-    public void setMans(int mans) {
+    public void setMans(String mans) {
         this.mans = mans;
     }
 
@@ -79,11 +79,11 @@ public class JobTime implements Serializable{
         this.salaryType = salaryType;
     }
 
-    public int getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 

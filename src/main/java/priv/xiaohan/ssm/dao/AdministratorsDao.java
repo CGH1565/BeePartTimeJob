@@ -42,9 +42,11 @@ public interface AdministratorsDao {
    //根据ID删除应聘管理的数据
    void deleteSummerJobOffer(int JID);
 
-   //批量删除应聘管理的数据
-   void deleteOfferList(@Param("ids")List<String> ids);
+   //批量删除兼职应聘数据
+   void deleteJobFairOfferList(@Param("ids")List<String> offerIDs);
 
+   //批量删除暑期工应聘数据
+   void deleteSummerJobOfferList(@Param("ids")List<String> offerIds);
    //管理员添加操作
    void addAdmin(AdministratorsS administratorss);
 

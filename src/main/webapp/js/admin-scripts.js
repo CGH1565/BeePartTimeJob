@@ -61,7 +61,6 @@ function noselect(){
 		checkall[$i].checked=false;  
 	}  
 };
-
  
 //IE6-9禁止用户选中文本
 /*document.body.onselectstart = document.body.ondrag = function () {

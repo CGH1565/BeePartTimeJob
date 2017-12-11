@@ -43,11 +43,15 @@ public interface JobTimeService {
     /*单条删除兼职应聘管理数据*/
     void deleteFariJobOffer(int id);
 
-    /*单挑删除暑期工管理数据*/
+    /*单挑删除暑期工应聘管理数据*/
     void deleteSummerJobOffer(int id);
 
-    /*批量删除应聘管理数据*/
-    void deleteOfferList(List<String> offerIDs);
+    /*批量删除兼职应聘管理数据*/
+    void deleteJobFairOfferList(List<String> offerIDs);
+
+    /*批量删除暑期工应聘管理数据*/
+    void deleteSummerJobOfferList(List<String> offerIDs);
+
 
     /*单条删除审核暑期工数据*/
     void auditingDeleteSummerJob(int id);

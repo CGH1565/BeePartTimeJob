@@ -64,12 +64,10 @@
             <mvc:exclude-mapping path="/test/job-time"/>
             <mvc:exclude-mapping path="/data/getBeeJobTime"/>
             <mvc:exclude-mapping path="/data/getBeeSummerJob"/>
-            <mvc:exclude-mapping path="/data/signUpSummerJob"/>
             <mvc:exclude-mapping path="/data/signUpJobFair"/>
-            <mvc:exclude-mapping path="/test/exit"/>
+            <mvc:exclude-mapping path="/data/signUpSummerJob"/>
             <mvc:exclude-mapping path="/data/getBeeJobTimeDetailed"/>
-            <mvc:exclude-mapping path="/data/publishSummerJob"/>
-            <mvc:exclude-mapping path="/data/getBeeJobTimes"/>
+            <mvc:exclude-mapping path="/data/getBeeSummerJobDetailed"/>
             <bean id="loginInterceptor" class="priv.xiaohan.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

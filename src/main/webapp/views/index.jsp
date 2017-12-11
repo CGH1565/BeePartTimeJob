@@ -20,15 +20,6 @@
 <link rel="apple-touch-icon-precomposed" href="<%=basePath%>/images/logo2.jpg">
 <link rel="shortcut icon" href="<%=basePath%>/images/logo2.jpg">
 <script src="<%=basePath%>js/jquery-2.1.4.min.js"></script>
-<!--[if gte IE 9]>
-  <script src="<%=basePath%>/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-  <script src="<%=basePath%>/js/html5shiv.min.js" type="text/javascript"></script>
-  <script src="<%=basePath%>/js/respond.min.js" type="text/javascript"></script>
-  <script src="<%=basePath%>/js/selectivizr-min.js" type="text/javascript"></script>
-<![endif]-->
-<!--[if lt IE 9]>
-  <script>window.location.href='upgrade-browser.html';</script>
-<![endif]-->
 </head>
 
 <body class="user-select">
@@ -53,7 +44,7 @@
           </ul>
           <form action="" method="post" class="navbar-form navbar-right" role="search">
             <div class="input-group">
-              <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索" maxlength="15">
+              <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索" maxlength="50">
             <span class="input-group-btn">
               <button class="btn btn-default" type="submit">搜索</button>
               </span> </div>
@@ -242,15 +233,15 @@
               </tr>
               <tr>
                 <td wdith="20%">旧密码:</td>
-                <td width="80%"><input type="password" class="form-control" name="old_password" maxlength="18" autocomplete="off" /></td>
+                <td width="80%"><input type="password" class="form-control" name="old_password" maxlength="50" autocomplete="off" /></td>
               </tr>
               <tr>
                 <td wdith="20%">新密码:</td>
-                <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+                <td width="80%"><input type="password" class="form-control" name="password" maxlength="50" autocomplete="off" /></td>
               </tr>
               <tr>
                 <td wdith="20%">确认密码:</td>
-                <td width="80%"><input type="password" class="form-control" name="new_password" maxlength="18" autocomplete="off" /></td>
+                <td width="80%"><input type="password" class="form-control" name="new_password" maxlength="50" autocomplete="off" /></td>
               </tr>
             </tbody>
             <tfoot>
@@ -328,17 +319,18 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/admin-scripts.js"></script>
 <script>
-  function exits() {
-    if(window.confirm("此操作不可逆，是否确认？")){
-        $.ajax({
-            url:"/test/exit",
-            dataType:"json",
-            success: function (data) {
-            }
-        })
-        window.location.href="/views/login.jsp";
+
+    function exits() {
+        if (window.confirm("此操作不可逆，是否确认？")) {
+            $.ajax({
+                url: "/test/exit",
+                dataType: "json",
+                success: function (data) {
+                },
+            });
+            window.location.href = "login.jsp";
+        }
     }
-  }
 </script>
 </body>
 </html>

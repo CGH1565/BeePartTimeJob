@@ -134,8 +134,13 @@ public class JobTimeImpl implements JobTimeService {
     }
 
     @Override
-    public void deleteOfferList(List<String> offerIDs) {
-        administratorsDao.deleteOfferList(offerIDs);
+    public void deleteJobFairOfferList(List<String> offerIDs) {
+        administratorsDao.deleteJobFairOfferList(offerIDs);
+    }
+
+    @Override
+    public void deleteSummerJobOfferList(List<String> offerIDs) {
+        administratorsDao.deleteSummerJobOfferList(offerIDs);
     }
 
     @Override

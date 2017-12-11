@@ -1,7 +1,5 @@
 package priv.xiaohan.ssm.jsonbase;
 
-import priv.xiaohan.ssm.model.JobFairList;
-
 import java.io.Serializable;
 
 /**

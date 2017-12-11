@@ -9,8 +9,8 @@ public class SummerJob implements Serializable{
     private int sId;
     private String companyName;
     private String jobName;
-    private int mans;
-    private int salary;
+    private String mans;
+    private String salary;
     private String address;
     private String workPlaceName;
     private String jobDesc;
@@ -21,7 +21,7 @@ public class SummerJob implements Serializable{
     public SummerJob() {
     }
 
-    public SummerJob(int sId, String companyName, String jobName, int mans, int salary, String address, String workPlaceName, String jobDesc, String linkMan, String mobilePhone, String updateDate) {
+    public SummerJob(int sId, String companyName, String jobName, String mans, String salary, String address, String workPlaceName, String jobDesc, String linkMan, String mobilePhone, String updateDate) {
         this.sId = sId;
         this.companyName = companyName;
         this.jobName = jobName;
@@ -59,19 +59,19 @@ public class SummerJob implements Serializable{
         this.jobName = jobName;
     }
 
-    public int getMans() {
+    public String getMans() {
         return mans;
     }
 
-    public void setMans(int mans) {
+    public void setMans(String mans) {
         this.mans = mans;
     }
 
-    public int getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
