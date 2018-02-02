@@ -2,7 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -11,7 +11,6 @@
 %>
 <html>
 <head>
-    <meta charset="utf-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -308,6 +307,7 @@
                             '<td>' + result[item].salaryType + '</td>' +
                             '<td>' + result[item].updateDate + '</td>' +
                             '<td id="d1"><a name="sees" rel="sees" class="sees" id="sees" draggable="false" href="see-auditing-jobfair.jsp?id=' + result[item].sId + '">查看</a>' + ' ' +
+                            '<a rel="' + result[item].sId + '" name="'+result[item].checks+'" id="hide" draggable="false">'+result[item].aValue+'</a>'+' '+
                             '<a rel="' + result[item].sId + '" name="deletes" id="deletes" class="deletes" draggable="false">删除</a>' +
                             '</td></tr>';
                         $("#tables").append(trs);
@@ -361,6 +361,7 @@
                                         '<td>' + result[item].salaryType + '</td>' +
                                         '<td>' + result[item].updateDate + '</td>' +
                                         '<td><a name="sees" rel="sees"  id="sees" draggable="false" href="see-auditing-jobfair.jsp?id=' + result[item].sId + '">查看</a>' + ' ' +
+                                        '<a rel="' + result[item].sId + '" name="'+ result[item].checks +'" id="hide" draggable="false">'+ result[item].aValue +'</a>'+' '+
                                         '<a rel="' + result[item].sId + '" class="deletes" name="deletes" id="deletes" draggable="false">删除</a>' +
                                         '</td></tr>';
                                     tables += trs;
@@ -399,6 +400,36 @@
             ;
         }
         ;
+        var array = new Array();
+        array[0] = name;
+        array[1] = id;
+        if(name === "false"){
+            if(window.confirm("是否选中隐藏联系方式？")){
+                $.ajax({
+                    type:"POST",
+                    url:"/test/auditingHideJobFairList",
+                    data:JSON.stringify(array),
+                    dataType:"json",
+                    contentType:"application/json",
+                    success:function () {
+                        window.location.reload();
+                    }
+                })
+            }
+        }else if(name ==="true"){
+            if(window.confirm("是否选中显示联系方式？")){
+                $.ajax({
+                    type:"POST",
+                    url:"/test/auditingHideJobFairList",
+                    data:JSON.stringify(array),
+                    dataType:"json",
+                    contentType:"application/json",
+                    success:function () {
+                        window.location.reload();
+                    }
+                })
+            }
+        }
     })
 
     //删除

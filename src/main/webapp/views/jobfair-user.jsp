@@ -2,7 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-    <meta charset="utf-8">
+
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -350,12 +350,30 @@
                         '<th><span class="glyphicon glyphicon-pencil "></span> <span class="visible-lg">报名时间</span></th>' +
                         '</tr></thead>');
                     result = data.jobFairList.userMessageBeans;
+                    tdsList = new Array();
+                    tdS = new Array();
+                    for (var item in result){
+                        jidS = result[item].jids;
+                        var JidS = new Array();
+                        JidS = jidS.split("/");
+                        jobNames = result[item].jobNames;
+                        var JobNameS = new Array();
+                        JobNameS = jobNames.split("/");
+                        var sb = new StringBuffer();
+                        for (var i = 0; i<JidS.length;i++){
+                            sb.append('<a href="see-job-time.jsp?id='+JidS[i]+'">'+JobNameS[i]+'</a>');
+                            if(i != (JidS.length-1)){
+                                sb.append("、")
+                            }
+                        }
+                        tdS.push(sb);
+                    }
                     for (var item in result) {
                         trs = '<tr>' +
                             '<td><input type="checkbox" class="input-control" name="checkboxs" value="' + result[item].userId + '"/></td>' +
                             '<td>' + result[item].name + '</td>' +
                             '<td>' + result[item].companyName + '</td>' +
-                            '<td>' + result[item].jobName + '</td>' +
+                            '<td>' +tdS[item]+'</td>' +
                             '<td>' + result[item].phone + '</td>' +
                             '<td>' + result[item].sex + '</td>' +
                             '<td>' + result[item].age + '</td>' +
@@ -414,7 +432,7 @@
                                         '<td><input type="checkbox" class="input-control" name="checkboxs" value="' + result[item].userId + '"/></td>' +
                                         '<td>' + result[item].name + '</td>' +
                                         '<td>' + result[item].companyName + '</td>' +
-                                        '<td>' + result[item].jobName + '</td>' +
+                                        '<td> <a href="see-job-time.jsp?id=' + result[item].jId + '">'+result[item].jobName+'</a></td>'+
                                         '<td>' + result[item].phone + '</td>' +
                                         '<td>' + result[item].sex + '</td>' +
                                         '<td>' + result[item].age + '</td>' +
@@ -518,6 +536,18 @@
             window.location.href = "login.jsp";
         }
     }
+
+    function StringBuffer() {
+        this.__strings__ = new Array;
+    }
+
+    StringBuffer.prototype.append = function (str) {
+        this.__strings__.push(str);
+    };
+
+    StringBuffer.prototype.toString = function () {
+        return this.__strings__.join("");
+    };
 </script>
 </body>
 </html>

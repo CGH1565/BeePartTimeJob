@@ -2,7 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -11,7 +11,6 @@
 %>
 <html>
 <head>
-    <meta charset="utf-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -329,7 +328,7 @@
                             '<td><input type="checkbox" class="input-control" name="checkboxs" value="' + result[item].userId + '"/></td>' +
                             '<td>' + result[item].name + '</td>' +
                             '<td>' + result[item].companyName + '</td>' +
-                            '<td>' + result[item].jobName + '</td>' +
+                            '<td><a href="see-summer-job.jsp?id=' + result[item].sId + '">' + result[item].jobName + '</a></td>' +
                             '<td>' + result[item].phone + '</td>' +
                             '<td>' + result[item].sex + '</td>' +
                             '<td>' + result[item].age + '</td>' +
@@ -388,7 +387,7 @@
                                         '<td><input type="checkbox" class="input-control" name="checkboxs" value="' + result[item].userId + '"/></td>' +
                                         '<td>' + result[item].name + '</td>' +
                                         '<td>' + result[item].companyName + '</td>' +
-                                        '<td>' + result[item].jobName + '</td>' +
+                                        '<td><a href="see-summer-job.jsp?id=' + result[item].sId + '">' + result[item].jobName + '</a></td>' +
                                         '<td>' + result[item].phone + '</td>' +
                                         '<td>' + result[item].sex + '</td>' +
                                         '<td>' + result[item].age + '</td>' +

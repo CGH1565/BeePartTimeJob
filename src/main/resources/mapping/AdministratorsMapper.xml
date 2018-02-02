@@ -145,6 +145,7 @@
             <result property="address" column="Address"/>
             <result property="salary" column="Salary"/>
             <result property="updateDate" column="UpdateDate"/>
+            <result property="checked" column="Checked"/>
         </collection>
     </resultMap>
 
@@ -171,6 +172,7 @@
             <result property="linkMan" column="LinkMan"/>
             <result property="mobilePhone" column="MobilePhone"/>
             <result property="updateDate" column="UpdateDate"/>
+            <result property="checked" column="Checked"/>
         </collection>
     </resultMap>
 
@@ -183,18 +185,18 @@
     </select>
 
     <insert id="insertAuditingSummerJobList" parameterType="java.util.List" >
-        insert into bst_company_summerjob(CompanyName,JobName,Mans,WorkPlaceName,JobDesc,LinkMan,MobilePhone,Address,Salary,UpdateDate)
+        insert into bst_company_summerjob(CompanyName,JobName,Mans,WorkPlaceName,JobDesc,LinkMan,MobilePhone,Address,Salary,UpdateDate,Checked)
         values
         <foreach collection="beeSummerJobBeans" item="item" index="index" separator="," >
-            (#{item.companyName},#{item.jobName},#{item.manS},#{item.workPlaceName},#{item.jobDesc},#{item.linkMan},#{item.mobilePhone},#{item.address},#{item.salary},#{item.updateDate})
+            (#{item.companyName},#{item.jobName},#{item.manS},#{item.workPlaceName},#{item.jobDesc},#{item.linkMan},#{item.mobilePhone},#{item.address},#{item.salary},#{item.updateDate},#{item.checked})
         </foreach>
     </insert>
 
     <insert id="insertAuditingJobFairList" parameterType="java.util.List" >
-        insert into bst_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate)
+        insert into bst_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate,Checked)
         values
         <foreach collection="beeJobTimeBeans" item="item" index="index" separator="," >
-            (#{item.companyName},#{item.jobName},#{item.mans},#{item.salary},#{item.salaryType},#{item.workPlaceName},#{item.address},#{item.jobDesc},#{item.workTime},#{item.linkMan},#{item.mobilePhone},#{item.updateDate})
+            (#{item.companyName},#{item.jobName},#{item.mans},#{item.salary},#{item.salaryType},#{item.workPlaceName},#{item.address},#{item.jobDesc},#{item.workTime},#{item.linkMan},#{item.mobilePhone},#{item.updateDate},#{item.checked})
         </foreach>
     </insert>
 
@@ -234,8 +236,15 @@
         set PassWord = #{passWord}
         where ID = #{id}
     </update>
+
     <delete id="deleteAdmin" parameterType="java.lang.Integer">
         delete from bst_system_administrator
         where ID=#{JID}
     </delete>
+
+    <update id="auditingHideJobFairList">
+        UPDATE bst_auditing_company_plurality
+        SET Checked = #{styles},AValue = #{aValue}
+        where JID = #{id}
+    </update>
 </mapper>

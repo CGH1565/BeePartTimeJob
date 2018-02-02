@@ -2,7 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-    <meta charset="utf-8">
+
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -108,7 +108,7 @@
                         Class.forName("com.mysql.jdbc.Driver").newInstance();
                         Connection connection = DriverManager.getConnection(url);
                         Statement statement = connection.createStatement();
-                        String id = request.getParameter("id");
+                        String id = request.  getParameter("id");
                         String sql = "SELECT * FROM " +tableName+" WHERE SID="+id;
                         ResultSet rs = statement.executeQuery(sql);
                     %>
@@ -134,12 +134,12 @@
 
                     <tr>
                         <td width="5%">薪资水平:</td>
-                        <td><input type="text" class="form-controls"  value="<%out.print(rs.getString(10));%>" id="Salary" name="Salary" maxlength="50"
+                        <td><input type="text" class="form-controls"  value="<%out.print(rs.getString(11));%>" id="Salary" name="Salary" maxlength="50"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">工作地区:</td>
-                        <td width="40%"><input type="text"  class="form-controls" id="Address"  value="<%out.print(rs.getString(9));%>" name="Address" maxlength="50"
+                        <td width="40%"><input type="text"  class="form-controls" id="Address"  value="<%out.print(rs.getString(10));%>" name="Address" maxlength="50"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
@@ -149,18 +149,18 @@
                     </tr>
                     <tr>
                         <td width="5%">工作描述：</td>
-                        <td><textarea name="JobDesc" id="JobDesc" maxlength="1000" rows="5" class="form-controls" onkeydown="chkLength(this);" aria-required="true" aria-invalid="false" style="margin: 0px 5px 0px 0px; width: 625px; height: 108px;"><%out.print(rs.getString(6));%></textarea>
+                        <td><textarea name="JobDesc" id="JobDesc" maxlength="1000" rows="5" class="form-controls" onkeydown="chkLength(this);" aria-required="true" aria-invalid="false" style="margin: 0px 5px 0px 0px; width: 625px; height: 108px;"><%out.print(rs.getString(7));%></textarea>
                             <span class="tishi">(限1000字)</span>
                         </td>
                     </tr>
                     <tr>
                         <td width="5%">联系人:</td>
-                        <td width="40%"><input type="text" class="form-controls" id="LinkMan"name="LinkMan" maxlength="50" value="<%out.print(rs.getString(7));%>"
+                        <td width="40%"><input type="text" class="form-controls" id="LinkMan"name="LinkMan" maxlength="50" value="<%out.print(rs.getString(8));%>"
                                                autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td width="5%">手机号码:</td>
-                        <td width="40%"><input type="text" class="form-controls" id="MobilePhone" name="MobilePhone" maxlength="50" value="<%out.print(rs.getString(8));%>"
+                        <td width="40%"><input type="text" class="form-controls" id="MobilePhone" name="MobilePhone" maxlength="50" value="<%out.print(rs.getString(9));%>"
                                                autocomplete="off"/></td>
                     </tr>
                     <%  } %>

@@ -32,17 +32,26 @@ public interface BeeDataDao {
     /*获取兼职报名List*/
     UserMessageList getSignUpJobFair();
 
+    /*根据phone查询兼职报名人员*/
+    UserMessageList selectJobFairUser(String phone);
+
     /*兼职报名*/
-    void putSignUpJobFair(UserMessage userMessage);
+    void putSignUpJobFair(@Param("userMessage") UserMessage userMessage);
+
+    /*根据UserId查询报名人员*/
+    String selectSignUpJobFairByUserId(int UserId);
+
+    /*插入amount*/
+    void insertAmount(@Param("amount") String amount,@Param("jobNames") String jobNames,@Param("userId") int userId);
 
     /*暑期工报名*/
-    void putSignUpSummerJob(UserMessage userMessage);
+    void putSignUpSummerJob(@Param("userMessage") UserMessage userMessage);
 
     /*暑期工发布*/
-    void publishSummerJob(BeeSummerJobDetailed beeSummerJobDetailed);
+    void publishSummerJob(@Param("beeSummerJobDetailed") BeeSummerJobDetailed beeSummerJobDetailed,@Param("tag") String tag);
 
     /*兼职发布*/
-    void publishJobFair(BeeSummerJobDetailed beeSummerJobDetailed);
+    void publishJobFair(@Param("beeSummerJobDetailed") BeeSummerJobDetailed beeSummerJobDetailed,@Param("tag") String tag);
 
     /*分页获取暑期工报名信息*/
     UserMessageList getSignUpSummerJobs(@Param("startIndex") int startIndex, @Param("endAmount") int endAmount);
@@ -57,4 +66,18 @@ public interface BeeDataDao {
     BeeSummerJobDetailedList AuditingSummerJob();
 
     BeeSummerJobDetailedList AuditingSummerJobs(@Param("startIndex") int startIndex, @Param("endAmount") int endAmount);
+
+    String selectSignUpJobFairByJIDS(int userId);
+
+    UserMessageList selectSummerJobUser(String phone);
+
+    String selectSignUpSummerJobByJIDS(int userId);
+
+    String selectSignUpSummerJobByUserId(int userId);
+
+    void insertAmount1(String jids, String jobNameS, int userId);
+
+    int getSid(int id);
+
+    int getJid(int id);
 }

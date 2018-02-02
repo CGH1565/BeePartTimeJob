@@ -1,18 +1,13 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="java.text.DateFormat" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.util.Date" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
+<%@ page pageEncoding="UTF-8"%>
 <html>
 <head>
-    <meta charset="utf-8">
+
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

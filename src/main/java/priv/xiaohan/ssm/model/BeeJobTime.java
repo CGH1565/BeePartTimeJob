@@ -24,6 +24,7 @@ public class BeeJobTime implements Serializable{
         private String linkMan;
         private String mobilePhone;
         private String updateDate;
+        private String checked;
 
         public int getjId() {
             return jId;
@@ -127,6 +128,14 @@ public class BeeJobTime implements Serializable{
 
         public void setUpdateDate(String updateDate) {
             this.updateDate = updateDate;
+        }
+
+        public String getChecked() {
+            return checked;
+        }
+
+        public void setChecked(String checked) {
+            this.checked = checked;
         }
     }
 

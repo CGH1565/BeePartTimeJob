@@ -3,22 +3,23 @@
 <mapper namespace="priv.xiaohan.ssm.dao.BeeDataDao">
 
     <resultMap id="BeeJobTime" type="priv.xiaohan.ssm.model.BeeJobTime">
-    <collection property="jobTimeBeans" ofType="priv.xiaohan.ssm.model.BeeJobTime$BeeJobTimeBean">
-        <result property="jId" column="JID"/>
-        <result property="companyName" column="CompanyName"/>
-        <result property="jobName" column="JobName"/>
-        <result property="mans" column="Mans"/>
-        <result property="salary" column="Salary"/>
-        <result property="salaryType" column="SalaryType"/>
-        <result property="workPlaceName" column="WorkPlaceName"/>
-        <result property="address" column="Address"/>
-        <result property="jobDesc" column="JobDesc"/>
-        <result property="workTime" column="WorkTime"/>
-        <result property="linkMan" column="LinkMan"/>
-        <result property="mobilePhone" column="MobilePhone"/>
-        <result property="updateDate" column="UpdateDate"/>
-    </collection>
-</resultMap>
+        <collection property="jobTimeBeans" ofType="priv.xiaohan.ssm.model.BeeJobTime$BeeJobTimeBean">
+            <result property="jId" column="JID"/>
+            <result property="companyName" column="CompanyName"/>
+            <result property="jobName" column="JobName"/>
+            <result property="mans" column="Mans"/>
+            <result property="salary" column="Salary"/>
+            <result property="salaryType" column="SalaryType"/>
+            <result property="workPlaceName" column="WorkPlaceName"/>
+            <result property="address" column="Address"/>
+            <result property="jobDesc" column="JobDesc"/>
+            <result property="workTime" column="WorkTime"/>
+            <result property="linkMan" column="LinkMan"/>
+            <result property="mobilePhone" column="MobilePhone"/>
+            <result property="updateDate" column="UpdateDate"/>
+            <result property="checked" column="Checked"/>
+        </collection>
+    </resultMap>
 
     <resultMap id="BeeSummerJob" type="priv.xiaohan.ssm.model.BeeSummerJob">
         <collection property="SummerJobBeans" ofType="priv.xiaohan.ssm.model.BeeSummerJob$BeeSummerJobBean">
@@ -34,6 +35,7 @@
             <result property="salary" column="Salary"/>
             <result property="updateDate" column="UpdateDate"/>
             <result property="workTime" column="WorkTime"/>
+            <result property="checked" column="Checked"/>
         </collection>
     </resultMap>
 
@@ -49,8 +51,28 @@
             <result property="education" column="Education"/>
             <result property="major" column="Major"/>
             <result property="updateDate" column="UpdateDate"/>
+            <result property="jId" column="jId"/>
+            <result property="Jids" column="JIDS"/>
+            <result property="jobNames" column="JobNames"/>
         </collection>
     </resultMap>
+
+    <resultMap id="UserMessageList2" type="priv.xiaohan.ssm.model.UserMessageList">
+        <collection property="userMessageBeans" ofType="priv.xiaohan.ssm.model.UserMessage">
+            <result property="userId" column="UserID"/>
+            <result property="name" column="Name"/>
+            <result property="companyName" column="CompanyName"/>
+            <result property="jobName" column="JobName"/>
+            <result property="phone" column="Phone"/>
+            <result property="sex" column="Sex"/>
+            <result property="age" column="Age"/>
+            <result property="education" column="Education"/>
+            <result property="major" column="Major"/>
+            <result property="updateDate" column="UpdateDate"/>
+            <result property="sId" column="SID"/>
+        </collection>
+    </resultMap>
+
 
     <select id="getBeeJobTime" resultMap="BeeJobTime">
         select * from bst_company_plurality order by  UpdateDate DESC
@@ -77,11 +99,11 @@
         select * from bst_jobfair_user order by UpdateDate DESC 
     </select>
 
-    <select id="getSignUpSummerJob" resultMap="UserMessageList">
+    <select id="getSignUpSummerJob" resultMap="UserMessageList2">
         select * from bst_summerjob_user order by UpdateDate DESC
     </select>
 
-    <select id="getSignUpSummerJobs" resultMap="UserMessageList">
+    <select id="getSignUpSummerJobs" resultMap="UserMessageList2">
         select * from bst_summerjob_user LIMIT #{startIndex},#{endAmount}
     </select>
 
@@ -100,6 +122,9 @@
             <result property="linkMan" column="LinkMan"/>
             <result property="mobilePhone" column="MobilePhone"/>
             <result property="updateDate" column="UpdateDate"/>
+            <result property="aValue" column="AValue"/>
+            <result property="checks" column="Checked"/>
+
         </collection>
     </resultMap>
 
@@ -121,7 +146,7 @@
 
     <select id="AuditingJobFairs" resultMap="BeeJobTimeDetailed">
     SELECT * FROM bst_auditing_company_plurality LIMIT #{startIndex},#{endAmount}
-</select>
+    </select>
 
     <select id="AuditingJobFair" resultMap="BeeJobTimeDetailed">
         select * from bst_auditing_company_plurality order by UpdateDate DESC
@@ -135,15 +160,50 @@
         select * from bst_auditing_company_summerjob order by UpdateDate DESC
     </select>
 
+    <select id="selectJobFairUser" parameterType="String" resultMap="UserMessageList">
+        select * from bst_jobfair_user where #{phone} = Phone
+    </select>
 
-    <insert id="putSignUpJobFair" parameterType="priv.xiaohan.ssm.model.UserMessage">
-        insert into bst_jobfair_user(JID,Name,CompanyName,JobName,Phone,Sex,Age,Education,Major,UpdateDate)
-        values (#{jId},#{name},#{companyName},#{jobName},#{phone},#{sex},#{age},#{education},#{major},#{updateDate})
-</insert>
+    <select id="selectSummerJobUser" parameterType="String" resultMap="UserMessageList">
+        select * from bst_summerjob_user where #{phone} = Phone
+    </select>
+
+    <select id="selectSignUpJobFairByUserId" parameterType="java.lang.Integer" resultType="String">
+        select JIDS from bst_jobfair_user where #{UserId} = UserId
+    </select>
+
+    <select id="selectSignUpSummerJobByUserId" parameterType="java.lang.Integer" resultType="String">
+        select SIDS from bst_summerjob_user where #{UserId} = UserId
+    </select>
+
+    <select id="selectSignUpJobFairByJIDS" parameterType="java.lang.Integer" resultType="String">
+        SELECT JobNames FROM bst_jobfair_user WHERE #{UserId} = UserId
+    </select>
+
+    <select id="selectSignUpSummerJobByJIDS" parameterType="java.lang.Integer" resultType="String">
+        SELECT JobNames FROM bst_summerjob_user WHERE #{UserId} = UserId
+    </select>
+
+    <update id="insertAmount">
+       UPDATE bst_jobfair_user
+       SET JIDS = #{amount},JobNames = #{jobNames}
+       WHERE UserId = #{userId}
+    </update>
+
+    <update id="insertAmount1">
+        UPDATE bst_summerjob_user
+        SET SIDS = #{amount},JobNames = #{jobNames}
+        WHERE UserId = #{userId}
+    </update>
+
+    <insert id="putSignUpJobFair">
+        insert into bst_jobfair_user(JID,Name,CompanyName,JobName,Phone,Sex,Age,Education,Major,UpdateDate,JIDS,JobNames)
+        values (#{userMessage.jId},#{userMessage.name},#{userMessage.companyName},#{userMessage.jobName},#{userMessage.phone},#{userMessage.sex},#{userMessage.age},#{userMessage.education},#{userMessage.major},#{userMessage.updateDate},#{userMessage.jId},#{userMessage.jobName})
+    </insert>
 
     <insert id="putSignUpSummerJob" parameterType="priv.xiaohan.ssm.model.UserMessage">
-        insert into bst_summerjob_user(SID,Name,CompanyName,JobName,Phone,Sex,Age,Education,Major,UpdateDate)
-        values (#{sId},#{name},#{companyName},#{jobName},#{phone},#{sex},#{age},#{education},#{major},#{updateDate})
+        insert into bst_summerjob_user(SID,Name,CompanyName,JobName,Phone,Sex,Age,Education,Major,UpdateDate,SIDS,JobNames)
+        values (#{userMessage.sId},#{userMessage.name},#{userMessage.companyName},#{userMessage.jobName},#{userMessage.phone},#{userMessage.sex},#{userMessage.age},#{userMessage.education},#{userMessage.major},#{userMessage.updateDate},#{userMessage.sId},#{userMessage.jobName})
     </insert>
 
     <select id="getBeeJobTimeDetailed" resultType="priv.xiaohan.ssm.model.BeeJobTimeDetailed">
@@ -155,13 +215,13 @@
 
     </select>
 
-    <select id="publishSummerJob" parameterType="priv.xiaohan.ssm.model.BeeSummerJobDetailed">
-        insert into bst_auditing_company_summerjob(CompanyName,JobName,Mans,WorkPlaceName,JobDesc,LinkMan,MobilePhone,Address,Salary,UpdateDate)
-        VALUES (#{companyName},#{jobName},#{manS},#{workPlaceName},#{jobDesc},#{linkMan},#{mobilePhone},#{address},#{salary},#{updateDate})
+    <select id="publishSummerJob">
+        insert into bst_auditing_company_summerjob(CompanyName,JobName,Mans,WorkPlaceName,JobDesc,LinkMan,MobilePhone,Address,Salary,UpdateDate,Checked)
+        VALUES (#{beeSummerJobDetailed.companyName},#{beeSummerJobDetailed.jobName},#{beeSummerJobDetailed.manS},#{beeSummerJobDetailed.workPlaceName},#{beeSummerJobDetailed.jobDesc},#{beeSummerJobDetailed.linkMan},#{beeSummerJobDetailed.mobilePhone},#{beeSummerJobDetailed.address},#{beeSummerJobDetailed.salary},#{beeSummerJobDetailed.updateDate},#{tag})
     </select>
 
-    <select id="publishJobFair" parameterType="priv.xiaohan.ssm.model.BeeSummerJobDetailed">
-        insert into bst_auditing_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate)
-        VALUES (#{companyName},#{jobName},#{manS},#{salary},#{jiesuanStyle},#{workPlaceName},#{address},#{jobDesc},#{workTime},#{linkMan},#{mobilePhone},#{updateDate})
+    <select id="publishJobFair">
+        insert into bst_auditing_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate,Checked,AValue)
+        VALUES (#{beeSummerJobDetailed.companyName},#{beeSummerJobDetailed.jobName},#{beeSummerJobDetailed.manS},#{beeSummerJobDetailed.salary},#{beeSummerJobDetailed.jiesuanStyle},#{beeSummerJobDetailed.workPlaceName},#{beeSummerJobDetailed.address},#{beeSummerJobDetailed.jobDesc},#{beeSummerJobDetailed.workTime},#{beeSummerJobDetailed.linkMan},#{beeSummerJobDetailed.mobilePhone},#{beeSummerJobDetailed.updateDate},#{tag},#{beeSummerJobDetailed.aValue})
     </select>
 </mapper>

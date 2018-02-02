@@ -2,7 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-    <meta charset="utf-8">
+
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +49,7 @@
                                 <li><a title="查看您的登录记录" data-toggle="modal" data-target="#seeUserLoginlog">登录记录</a></li>
                             </ul>
                         </li>
-                        <li><a href="login.jsp" onClick="exits()">退出登录</a></li>
+                        <li><a  onClick="exits()">退出登录</a></li>
                         <li><a data-toggle="modal" data-target="#WeChat">帮助</a></li>
                     </ul>
                     <form action="" method="post" class="navbar-form navbar-right" role="search">

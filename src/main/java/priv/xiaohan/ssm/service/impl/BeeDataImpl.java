@@ -127,8 +127,18 @@ public class BeeDataImpl implements BeeDataService{
     }
 
     @Override
-    public void putSignUpJobFair(UserMessage userMessage) {
-        beeDataDao.putSignUpJobFair(userMessage);
+    public UserMessageList selectJobFairUser(String phone) {
+        return beeDataDao.selectJobFairUser(phone);
+    }
+
+    @Override
+    public UserMessageList selectSummerJobUser(String phone) {
+        return beeDataDao.selectSummerJobUser(phone);
+    }
+
+    @Override
+    public void putSignUpJobFair(UserMessage userMessaged) {
+        beeDataDao.putSignUpJobFair(userMessaged);
     }
 
     @Override
@@ -137,12 +147,53 @@ public class BeeDataImpl implements BeeDataService{
     }
 
     @Override
-    public void publishSummerJob(BeeSummerJobDetailed beeSummerJobDetailed) {
-        beeDataDao.publishSummerJob(beeSummerJobDetailed);
+    public void publishSummerJob(BeeSummerJobDetailed beeSummerJobDetailed,String tag) {
+        beeDataDao.publishSummerJob(beeSummerJobDetailed,tag);
     }
 
     @Override
-    public void publishJobFair(BeeSummerJobDetailed beeSummerJobDetailed) {
-        beeDataDao.publishJobFair(beeSummerJobDetailed);
+    public void publishJobFair(BeeSummerJobDetailed beeSummerJobDetailed,String tag) {
+        beeDataDao.publishJobFair(beeSummerJobDetailed,tag);
+    }
+
+    @Override
+    public String selectSignUpJobFairByUserId(int userId) {
+        return beeDataDao.selectSignUpJobFairByUserId(userId);
+    }
+
+    @Override
+    public void insertAmount(String amount,String jobNames,int userId) {
+        beeDataDao.insertAmount(amount,jobNames,userId);
+    }
+
+    @Override
+    public String selectSignUpJobFairByJIDS(int userId) {
+        return beeDataDao.selectSignUpJobFairByJIDS(userId);
+    }
+
+    @Override
+    public String selectSignUpSummerJobByUserId(int userId) {
+        return beeDataDao.selectSignUpSummerJobByUserId(userId);
+    }
+
+    @Override
+    public String selectSignUpSummerJobByJIDS(int userId) {
+        return beeDataDao.selectSignUpSummerJobByJIDS(userId);
+    }
+
+    @Override
+    public void insertAmount1(String jids, String jobNameS, int userId) {
+        beeDataDao.insertAmount1(jids,jobNameS,userId);
+    }
+
+    @Override
+    public int getId(int id) {
+        int id1 = 0;
+        if(id == 0){
+          id1 =  beeDataDao.getJid(id);
+        }else {
+           id1 = beeDataDao.getSid(id);
+        }
+        return id1;
     }
 }

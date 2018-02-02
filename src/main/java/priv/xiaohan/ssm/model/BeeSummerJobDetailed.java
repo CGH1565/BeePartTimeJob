@@ -1,5 +1,8 @@
 package priv.xiaohan.ssm.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by HotSauce on 2017/10/24.
  */
@@ -19,6 +22,18 @@ public class BeeSummerJobDetailed {
     private String jiesuanStyle;
     private String salaryType;
     private String workTime;
+    private ArrayList<String> check;
+    private String aValue;
+    private String checks;
+    private String checked;
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
+    }
 
     public String getSalaryType() {
         return salaryType;
@@ -31,7 +46,6 @@ public class BeeSummerJobDetailed {
     public String getWorkTime() {
         return workTime;
     }
-
 
     public void setWorkTime(String workTime) {
         this.workTime = workTime;
@@ -140,4 +154,29 @@ public class BeeSummerJobDetailed {
     public void setJiesuanStyle(String jiesuanStyle) {
         this.jiesuanStyle = jiesuanStyle;
     }
+
+    public ArrayList<String> getCheck() {
+        return check;
+    }
+
+    public void setCheck(ArrayList<String> check) {
+        this.check = check;
+    }
+
+    public String getaValue() {
+        return aValue;
+    }
+
+    public void setaValue(String aValue) {
+        this.aValue = aValue;
+    }
+
+    public String getChecks() {
+        return checks;
+    }
+
+    public void setChecks(String checks) {
+        this.checks = checks;
+    }
+
 }

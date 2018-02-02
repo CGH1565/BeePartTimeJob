@@ -85,4 +85,6 @@ public interface AdministratorsDao {
    //批量删除兼职审核管理的数据
    void auditingDeleteJobFairList(@Param("ids")List<String> ids);
 
+   //批量隐藏兼职审核管理的数据
+    void auditingHideJobFairList(@Param("styles") String styles,@Param("aValue") String aValue,@Param("id") String id);
 }

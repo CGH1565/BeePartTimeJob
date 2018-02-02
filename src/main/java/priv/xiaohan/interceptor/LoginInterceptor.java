@@ -5,6 +5,7 @@ import org.omg.PortableInterceptor.Interceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import priv.xiaohan.ssm.model.Administrators;
+import sun.misc.Request;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -37,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(!url1.equals("")){
             Administrators administrators = (Administrators) httpServletRequest.getSession().getAttribute("userName");
             if(administrators == null){
-                httpServletResponse.sendRedirect("/views/login.jsp");
+               httpServletResponse.sendRedirect("/views/login.jsp");
                 System.out.println("未登录，请重新登陆");
                 return false;
             }

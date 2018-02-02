@@ -159,6 +159,22 @@ public class BeeController {
         return "true";
     }
 
+    //兼职审核管理批量隐藏操作
+    @RequestMapping(value = "/auditingHideJobFairList",method = RequestMethod.POST)
+    @ResponseBody
+    public String  auditingHideJobFairList(@RequestBody List<String> Style){
+        String styles;
+        String aValue;
+        if(Style.get(0).equals("false")){
+            styles = "true";
+            aValue = "显示联系";
+        }else{
+            styles = "false";
+            aValue = "隐藏联系";
+        }
+        jobTimeService.auditingHideJobFairList(styles,aValue,Style.get(1));
+        return "true";
+    }
 
     //兼职审核管理批量删除操作
     @RequestMapping(value = "/auditingDeleteJobFairList",method = RequestMethod.POST)

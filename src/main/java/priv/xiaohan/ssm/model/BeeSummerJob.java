@@ -25,6 +25,7 @@ public class BeeSummerJob implements Serializable {
         private String salary;
         private String updateDate;
         private String workTime;
+        private String checked;
 
         public String getWorkTime() {
             return workTime;
@@ -122,6 +123,13 @@ public class BeeSummerJob implements Serializable {
             this.updateDate = updateDate;
         }
 
+        public String getChecked() {
+            return checked;
+        }
+
+        public void setChecked(String checked) {
+            this.checked = checked;
+        }
     }
 
     public  List<BeeSummerJobBean> getSummerJobBeans() {

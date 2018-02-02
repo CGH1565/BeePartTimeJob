@@ -157,4 +157,9 @@ public class JobTimeImpl implements JobTimeService {
     public void deleteAdmin(int id) {
         administratorsDao.deleteAdmin(id);
     }
+
+    @Override
+    public void auditingHideJobFairList(String styles, String aValue, String id) {
+        administratorsDao.auditingHideJobFairList(styles,aValue,id);
+    }
 }

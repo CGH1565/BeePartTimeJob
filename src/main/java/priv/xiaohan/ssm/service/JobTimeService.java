@@ -80,4 +80,6 @@ public interface JobTimeService {
     /*管理员删除操作*/
     void deleteAdmin(int id);
 
+    /*批量隐藏兼职审核信息*/
+    void auditingHideJobFairList(String styles,String aValue,String id);
 }

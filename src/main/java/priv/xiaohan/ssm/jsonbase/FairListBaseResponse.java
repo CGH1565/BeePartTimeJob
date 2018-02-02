@@ -57,6 +57,10 @@ public class FairListBaseResponse implements Serializable {
         return new FairListBaseResponse(500, "请求失败");
     }
 
+    public static FairListBaseResponse createSysErrorResp(String message){
+        return new FairListBaseResponse(500,message);
+    }
+
     public static FairListBaseResponse createFSysErrorResp() {
         return new FairListBaseResponse(500, "请求失败", null);
     }

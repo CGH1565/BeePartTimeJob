@@ -8,7 +8,7 @@ public class BeeJobTimeDetailed {
     private String companyName;
     private String jobName;
     private String mans;
-    private long salary;
+    private String salary;
     private String salaryType;
     private String workPlaceName;
     private String address;
@@ -17,6 +17,7 @@ public class BeeJobTimeDetailed {
     private String linkMan;
     private String mobilePhone;
     private String updateDate;
+    private String checked;
 
 
     public int getjId() {
@@ -51,11 +52,11 @@ public class BeeJobTimeDetailed {
         this.mans = mans;
     }
 
-    public long getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(long salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
@@ -121,5 +122,13 @@ public class BeeJobTimeDetailed {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
     }
 }

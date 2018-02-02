@@ -5,13 +5,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import priv.xiaohan.ssm.dao.BeeDataDao;
 import priv.xiaohan.ssm.exception.ServiceException;
 import priv.xiaohan.ssm.jsonbase.FairListBaseResponse;
+import priv.xiaohan.ssm.jsonbase.FairListResponse;
 import priv.xiaohan.ssm.model.*;
 import priv.xiaohan.ssm.service.BeeDataService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /**
  * Created by HotSauce on 2017/9/15.
@@ -31,9 +37,14 @@ public class MoveController {
 
     public BeeSummerJobDetailed beeSummerJobDetailed;
 
+    public BeeDataDao beeDataDao;
+
+    public FairListResponse.PageAll pageAll;
+
 
     private UserMessageList userMessageList;
     private BeeSummerJobDetailedList beeSummerJobDetailedList;
+    private FairListResponse fairListResponse;
 
 
     /*获取兼职数据*/
@@ -46,6 +57,71 @@ public class MoveController {
             return FairListBaseResponse.createSysErrorResp();
         }
         return FairListBaseResponse.createSuccessResp(beeJobTime);
+    }
+
+
+    /*分页获取兼职数据*/
+    @RequestMapping(value = "/splitBeeJobTimes",method = RequestMethod.GET)
+    @ResponseBody
+    public FairListResponse splitBeeJobTimes(HttpServletRequest request) {
+        try {
+            int page = Integer.parseInt(request.getParameter("page"));
+            fairListResponse = new FairListResponse();
+            int pageIndex = 0;
+            int pageSize = 8;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            beeJobTime = beeDataService.getBeeJobTime();
+            rowCount = beeJobTime.getJobTimeBeans().size();
+            if (rowCount < pageSize) {
+                pages = 1;
+            } else if (rowCount % pageSize != 0) {
+                pages = rowCount / pageSize + 1;
+            } else {
+                pages = rowCount / pageSize;
+            }
+            beeJobTime = beeDataService.getBeeJobTimes(pageIndex, pageSize);
+            FairListResponse.PageAll pageAll = new FairListResponse.PageAll(page,pages);
+            beeJobTime.setPages(pages);
+            fairListResponse.setArr(beeJobTime);
+            fairListResponse.setPageAll(pageAll);
+            return fairListResponse;
+        } catch (ServiceException e) {
+        }
+       return fairListResponse;
+    }
+
+    /*分页获取暑期工数据*/
+    @RequestMapping(value = "/splitBeeSummerJob",method = RequestMethod.GET)
+    @ResponseBody
+    public FairListResponse splitBeeSummerJob(HttpServletRequest request) {
+        try {
+            int page = Integer.parseInt(request.getParameter("page"));
+            fairListResponse = new FairListResponse();
+            int pageIndex = 0;
+            int pageSize = 8;
+            int rowCount = 0;
+            int pages = 0;
+            pageIndex = page;
+            beeSummerJob = beeDataService.getBeeSummerJob();
+            rowCount = beeSummerJob.getSummerJobBeans().size();
+            if (rowCount < pageSize) {
+                pages = 1;
+            } else if (rowCount % pageSize != 0) {
+                pages = rowCount / pageSize + 1;
+            } else {
+                pages = rowCount / pageSize;
+            }
+            beeSummerJob = beeDataService.getBeeSummerJobs(pageIndex, pageSize);
+            FairListResponse.PageAll pageAll = new FairListResponse.PageAll(page,pages);
+            beeSummerJob.setPages(pages);
+            fairListResponse.setArr(beeSummerJob);
+            fairListResponse.setPageAll(pageAll);
+            return fairListResponse;
+        } catch (ServiceException e) {
+        }
+        return fairListResponse;
     }
 
     /*分页获取兼职数据*/
@@ -69,11 +145,13 @@ public class MoveController {
             }
             beeJobTime = beeDataService.getBeeJobTimes(pageIndex,pageSize);
             beeJobTime.setPages(pages);
+
         }catch (ServiceException e){
             return FairListBaseResponse.createSysErrorResp();
         }
         return FairListBaseResponse.createSuccessResp(beeJobTime);
     }
+
 
     /*分页获取暑期工数据*/
     @RequestMapping(value="/getBeeSummerJobs",method = RequestMethod.POST)
@@ -223,7 +301,22 @@ public class MoveController {
     @ResponseBody
     public FairListBaseResponse putSignUpJobFair(@RequestBody UserMessage userMessage){
         try{
-            beeDataService.putSignUpJobFair(userMessage);
+            UserMessageList userMessageList = beeDataService.selectJobFairUser(userMessage.getPhone());
+            if(userMessageList == null){
+                beeDataService.putSignUpJobFair(userMessage);
+                return FairListBaseResponse.createSuccessResp();
+            }else {
+                for (UserMessage userMessage1 : userMessageList.getUserMessageBeans()) {
+                    if(userMessage1.getjId() == (userMessage.getjId())){
+                        return FairListBaseResponse.createSysErrorResp("已投递该职位，请勿重复投递！");
+                    }
+                }
+            }
+            String JIDs = beeDataService.selectSignUpJobFairByUserId(userMessageList.getUserMessageBeans().get(0).getUserId());
+            String JIDS = JIDs+"/"+userMessage.getjId();
+            String JobNames = beeDataService.selectSignUpJobFairByJIDS(userMessageList.getUserMessageBeans().get(0).getUserId());
+            String JobNameS = JobNames+"/"+userMessage.getJobName();
+            beeDataService.insertAmount(JIDS,JobNameS,userMessageList.getUserMessageBeans().get(0).getUserId());
         }catch (ServiceException e){
             return FairListBaseResponse.createSysErrorResp();
         }
@@ -235,12 +328,28 @@ public class MoveController {
     @ResponseBody
     public FairListBaseResponse putSignUpSummerJob(@RequestBody UserMessage userMessage){
         try{
-            beeDataService.putSignUpSummerJob(userMessage);
+            UserMessageList userMessageList = beeDataService.selectSummerJobUser(userMessage.getPhone());
+            if(userMessageList == null){
+                beeDataService.putSignUpSummerJob(userMessage);
+                return FairListBaseResponse.createSuccessResp();
+            }else {
+                for (UserMessage userMessage1 : userMessageList.getUserMessageBeans()) {
+                    if(userMessage1.getjId() == (userMessage.getjId())){
+                        return FairListBaseResponse.createSysErrorResp("已投递该职位，请勿重复投递！");
+                    }
+                }
+            }
+            String JIDs = beeDataService.selectSignUpSummerJobByUserId(userMessageList.getUserMessageBeans().get(0).getUserId());
+            String JIDS = JIDs+"/"+userMessage.getjId();
+            String JobNames = beeDataService.selectSignUpSummerJobByJIDS(userMessageList.getUserMessageBeans().get(0).getUserId());
+            String JobNameS = JobNames+"/"+userMessage.getJobName();
+            beeDataService.insertAmount1(JIDS,JobNameS,userMessageList.getUserMessageBeans().get(0).getUserId());
         }catch (ServiceException e){
             return FairListBaseResponse.createSysErrorResp();
         }
         return FairListBaseResponse.createSuccessResp();
     }
+
     /*分页兼职审核信息*/
     @RequestMapping(value="/AuditingJobFairs",method = RequestMethod.POST)
     @ResponseBody
@@ -296,12 +405,23 @@ public class MoveController {
     /*暑期工、兼职发布*/
     @RequestMapping(value = "/publishSummerJob",method = RequestMethod.POST)
     @ResponseBody
-    public FairListBaseResponse publishSummerJob(@RequestBody BeeSummerJobDetailed beeSummerJobDetailed){
+    public FairListBaseResponse publishSummerJob(@RequestBody BeeSummerJobDetailed beeSummerJobDetailed, HttpServletRequest request){
         try{
-            if(beeSummerJobDetailed.getJobFairStyle().equals("暑期工")){
-            beeDataService.publishSummerJob(beeSummerJobDetailed);}
+            String tag;
+            if(beeSummerJobDetailed.getCheck().size() == 0){
+                tag = "false";
+            }else{
+                tag = beeSummerJobDetailed.getCheck().get(0);
+            }
+            if(tag.equals("true")){
+                beeSummerJobDetailed.setaValue("显示联系");
+            }else {
+                beeSummerJobDetailed.setaValue("隐藏联系");
+            }
+            if(beeSummerJobDetailed.getJobFairStyle().equals("暑假工")){
+            beeDataService.publishSummerJob(beeSummerJobDetailed,tag);}
             else {
-                beeDataService.publishJobFair(beeSummerJobDetailed);
+                beeDataService.publishJobFair(beeSummerJobDetailed,tag);
             }
         }catch (ServiceException e){
             return FairListBaseResponse.createSysErrorResp();
