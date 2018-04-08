@@ -173,6 +173,7 @@
             <result property="mobilePhone" column="MobilePhone"/>
             <result property="updateDate" column="UpdateDate"/>
             <result property="checked" column="Checked"/>
+            <result property="openId" column="openId"/>
         </collection>
     </resultMap>
 
@@ -193,10 +194,10 @@
     </insert>
 
     <insert id="insertAuditingJobFairList" parameterType="java.util.List" >
-        insert into bst_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate,Checked)
+        insert into bst_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate,Checked,openId)
         values
         <foreach collection="beeJobTimeBeans" item="item" index="index" separator="," >
-            (#{item.companyName},#{item.jobName},#{item.mans},#{item.salary},#{item.salaryType},#{item.workPlaceName},#{item.address},#{item.jobDesc},#{item.workTime},#{item.linkMan},#{item.mobilePhone},#{item.updateDate},#{item.checked})
+            (#{item.companyName},#{item.jobName},#{item.mans},#{item.salary},#{item.salaryType},#{item.workPlaceName},#{item.address},#{item.jobDesc},#{item.workTime},#{item.linkMan},#{item.mobilePhone},#{item.updateDate},#{item.checked},#{item.openId})
         </foreach>
     </insert>
 

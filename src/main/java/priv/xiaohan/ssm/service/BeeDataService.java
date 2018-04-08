@@ -2,6 +2,8 @@ package priv.xiaohan.ssm.service;
 
 import priv.xiaohan.ssm.model.*;
 
+import java.util.List;
+
 /**
  * Created by HotSauce on 2017/9/15.
  */
@@ -81,4 +83,40 @@ public interface BeeDataService {
 
     /*获取兼职或暑期工数据ID*/
     int getId(int id);
+
+    void putOpenId(Object openId,int targetId);
+
+    BeeJobTime getAuditingBeeJobTimeByOpenId(String openId);
+
+    BeeJobTime getAuditingBeeJobTimesByOpenId(String openId, int pageIndex, int pageSize);
+
+    BeeJobTime getBeeJobTimeByOpenId(String openId);
+
+    BeeJobTime getBeeJobTimesByOpenId(String openId, int pageIndex, int pageSize);
+
+    int selectIsGet(int i);
+
+    UserMessageList getSignUpJobFairsByJid();
+
+    UserMessageList getSignUpJobFairByJid(UserMessageList userMessageList,int pageIndex, int pageSize);
+
+    int selectargetId(String openId);
+
+    BeeJobTimeDetailed getAuditingBeeJobTimeDetailed(int jid);
+
+    int selectOpenId(Object openId);
+
+    Object selectOpenIds(Object openId);
+
+    List<Integer> getJidByOpenId(String openId);
+
+    String getJidsByOpenId(String openId);
+
+    BeeJobTime getJobTimeByOpenId(List<String> jidS);
+
+    BeeJobTime getBeeJobTimesByOpenIds(BeeJobTime beeJobTime,int pageIndex, int pageSize);
+
+    String getJidsByJid(int i);
+
+    String[] getJids();
 }

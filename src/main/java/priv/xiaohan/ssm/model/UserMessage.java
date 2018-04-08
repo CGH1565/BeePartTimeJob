@@ -20,26 +20,7 @@ public class UserMessage implements Serializable{
     private int sId;
     private String Jids;
     private String jobNames;
-
-    public UserMessage() {
-    }
-
-    public UserMessage(int userId, String name, String companyName, String jobName, String phone, char sex, int age, String education, String major, String updateDate, int jId, int sId, String jids, String jobNames) {
-        this.userId = userId;
-        this.name = name;
-        this.companyName = companyName;
-        this.jobName = jobName;
-        this.phone = phone;
-        this.sex = sex;
-        this.age = age;
-        this.education = education;
-        this.major = major;
-        this.updateDate = updateDate;
-        this.jId = jId;
-        this.sId = sId;
-        Jids = jids;
-        this.jobNames = jobNames;
-    }
+    private String openId;
 
     public int getUserId() {
         return userId;
@@ -151,5 +132,13 @@ public class UserMessage implements Serializable{
 
     public void setJobNames(String jobNames) {
         this.jobNames = jobNames;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 }

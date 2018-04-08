@@ -3,6 +3,8 @@ package priv.xiaohan.ssm.dao;
 import org.apache.ibatis.annotations.Param;
 import priv.xiaohan.ssm.model.*;
 
+import java.util.List;
+
 /**
  * Created by HotSauce on 2017/9/15.
  */
@@ -80,4 +82,42 @@ public interface BeeDataDao {
     int getSid(int id);
 
     int getJid(int id);
+
+    void putOpenId(@Param("openId") Object openId,@Param("targetId") int targetId);
+
+    BeeJobTime getAuditingBeeJobTimeByOpenId(String openId);
+
+    BeeJobTime getAuditingBeeJobTimesByOpenId(@Param("openId") String openId, @Param("startIndex") int startIndex, @Param("endAmount") int endAmount);
+
+    BeeJobTime getBeeJobTimesByOpenId(@Param("openId") String openId, @Param("startIndex") int startIndex, @Param("endAmount") int endAmount);
+
+    BeeJobTime getBeeJobTimeByOpenId(String openId);
+
+    int selectIsGet(int i);
+
+    UserMessageList getSignUpJobFairsByJid();
+
+    UserMessageList getSignUpJobFairByJid(@Param("jid") String jid,@Param("startIndex") int startIndex, @Param("endAmount") int endAmount);
+
+    int selectargetId(String openId);
+
+    BeeJobTimeDetailed getAuditingBeeJobTimeDetailed(int jid);
+
+    int selectOpenId(Object openId);
+
+    Object selectOpenIds(Object openId);
+
+    List<Integer> getJidByOpenId(String openId);
+
+    void getJobTimeUserByJid(List<Integer> jid);
+
+    String getJidsByOpenId(String openId);
+
+    BeeJobTime getJobTimeByOpenId(@Param("jidS") List<String> jidS);
+
+    BeeJobTime getBeeJobTimesByOpenIds(int startIndex, int endAmount);
+
+    String getJidsByJid(int i);
+
+    String[] getJids();
 }

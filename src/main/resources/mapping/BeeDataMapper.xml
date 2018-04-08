@@ -172,6 +172,7 @@
         select JIDS from bst_jobfair_user where #{UserId} = UserId
     </select>
 
+
     <select id="selectSignUpSummerJobByUserId" parameterType="java.lang.Integer" resultType="String">
         select SIDS from bst_summerjob_user where #{UserId} = UserId
     </select>
@@ -197,8 +198,8 @@
     </update>
 
     <insert id="putSignUpJobFair">
-        insert into bst_jobfair_user(JID,Name,CompanyName,JobName,Phone,Sex,Age,Education,Major,UpdateDate,JIDS,JobNames)
-        values (#{userMessage.jId},#{userMessage.name},#{userMessage.companyName},#{userMessage.jobName},#{userMessage.phone},#{userMessage.sex},#{userMessage.age},#{userMessage.education},#{userMessage.major},#{userMessage.updateDate},#{userMessage.jId},#{userMessage.jobName})
+        insert into bst_jobfair_user(JID,Name,CompanyName,JobName,Phone,Sex,Age,Education,Major,UpdateDate,JIDS,JobNames,openId)
+        values (#{userMessage.jId},#{userMessage.name},#{userMessage.companyName},#{userMessage.jobName},#{userMessage.phone},#{userMessage.sex},#{userMessage.age},#{userMessage.education},#{userMessage.major},#{userMessage.updateDate},#{userMessage.jId},#{userMessage.jobName},#{userMessage.openId})
     </insert>
 
     <insert id="putSignUpSummerJob" parameterType="priv.xiaohan.ssm.model.UserMessage">
@@ -208,6 +209,10 @@
 
     <select id="getBeeJobTimeDetailed" resultType="priv.xiaohan.ssm.model.BeeJobTimeDetailed">
         select * from bst_company_plurality where JID = #{jid}
+    </select>
+
+    <select id="getAuditingBeeJobTimeDetailed" resultType="priv.xiaohan.ssm.model.BeeJobTimeDetailed">
+        select * from bst_auditing_company_plurality where JID = #{jid}
     </select>
 
     <select id="getSummerJobDetailed" resultType="priv.xiaohan.ssm.model.BeeSummerJobDetailed">
@@ -221,7 +226,76 @@
     </select>
 
     <select id="publishJobFair">
-        insert into bst_auditing_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate,Checked,AValue)
-        VALUES (#{beeSummerJobDetailed.companyName},#{beeSummerJobDetailed.jobName},#{beeSummerJobDetailed.manS},#{beeSummerJobDetailed.salary},#{beeSummerJobDetailed.jiesuanStyle},#{beeSummerJobDetailed.workPlaceName},#{beeSummerJobDetailed.address},#{beeSummerJobDetailed.jobDesc},#{beeSummerJobDetailed.workTime},#{beeSummerJobDetailed.linkMan},#{beeSummerJobDetailed.mobilePhone},#{beeSummerJobDetailed.updateDate},#{tag},#{beeSummerJobDetailed.aValue})
+        insert into bst_auditing_company_plurality(CompanyName,JobName,Mans,Salary,SalaryType,WorkPlaceName,Address,JobDesc,WorkTime,LinkMan,MobilePhone,UpdateDate,Checked,AValue,openId)
+        VALUES (#{beeSummerJobDetailed.companyName},#{beeSummerJobDetailed.jobName},#{beeSummerJobDetailed.manS},#{beeSummerJobDetailed.salary},#{beeSummerJobDetailed.jiesuanStyle},#{beeSummerJobDetailed.workPlaceName},#{beeSummerJobDetailed.address},#{beeSummerJobDetailed.jobDesc},#{beeSummerJobDetailed.workTime},#{beeSummerJobDetailed.linkMan},#{beeSummerJobDetailed.mobilePhone},#{beeSummerJobDetailed.updateDate},#{tag},#{beeSummerJobDetailed.aValue},#{beeSummerJobDetailed.openId})
+    </select>
+
+    <insert id="putOpenId" parameterType="java.lang.Object">
+        insert into bst_user(openId,targetId)
+        VALUES(#{openId},#{targetId})
+    </insert>
+    
+    <select id="getAuditingBeeJobTimeByOpenId" resultMap="BeeJobTime">
+        select * from bst_auditing_company_plurality where openId=#{openId}
+    </select>
+
+    <select id="getAuditingBeeJobTimesByOpenId" resultMap="BeeJobTime">
+        SELECT * FROM bst_auditing_company_plurality WHERE openId = #{openId} order by UpdateDate LIMIT #{startIndex},#{endAmount}
+    </select>
+
+    <select id="getBeeJobTimeByOpenId" resultMap="BeeJobTime">
+        select * from bst_company_plurality where openId=#{openId}
+    </select>
+
+    <select id="getBeeJobTimesByOpenId" resultMap="BeeJobTime">
+        SELECT * FROM bst_company_plurality WHERE openId = #{openId} order by UpdateDate LIMIT #{startIndex},#{endAmount}
+    </select>
+
+    <select id="selectIsGet" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select COUNT(*) from bst_jobfair_user where JID=#{JID}
+    </select>
+
+    <select id="getSignUpJobFairsByJid"  resultMap="UserMessageList">
+        select * from bst_jobfair_user
+    </select>
+
+    <select id="getSignUpJobFairByJid" resultMap="UserMessageList">
+        select * from bst_jobfair_user where JID = #{jid} order by UpdateDate LIMIT #{startIndex},#{endAmount}
+    </select>
+
+    <select id="selectargetId" parameterType="String" resultType="java.lang.Integer">
+        select targetId from bst_user where openId = #{openId}
+    </select>
+
+    <select id="selectOpenId" parameterType="java.lang.Object" resultType="java.lang.Integer">
+        select COUNT(*) from bst_user where openId = #{openId}
+    </select>
+
+    <select id="selectOpenIds" parameterType="java.lang.String" resultType="java.lang.Object">
+        SELECT targetId FROM bst_user where openId = #{openId}
+    </select>
+
+    <select id="getJidByOpenId" parameterType="java.lang.String" resultType="String">
+        SELECT JID FROM bst_jobfair_user WHERE openId = #{openId}
+    </select>
+
+    <select id="getJidsByOpenId" parameterType="java.lang.String" resultType="String">
+        select JIDS FROM bst_jobfair_user WHERE openId = #{openId}
+    </select>
+
+    <select id="getJobTimeByOpenId" parameterType="java.util.List" resultMap="BeeJobTime">
+        SELECT * FROM bst_company_plurality
+        WHERE JID IN
+        <foreach collection="jidS" item="jIDs" index="index" open="(" separator="," close=")">
+            #{jIDs}
+        </foreach>
+    </select>
+
+    <select id="getJidsByJid" parameterType="java.lang.Integer" resultType="String">
+        SELECT JIDS FROM bst_jobfair_user WHERE JID = #{i}
+    </select>
+
+    <select id="getJids" resultType="String">
+        SELECT JIDS FROM bst_jobfair_user
     </select>
 </mapper>

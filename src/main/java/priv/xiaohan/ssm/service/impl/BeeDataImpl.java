@@ -6,6 +6,8 @@ import priv.xiaohan.ssm.model.*;
 import priv.xiaohan.ssm.service.BeeDataService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HotSauce on 2017/9/15.
@@ -195,5 +197,141 @@ public class BeeDataImpl implements BeeDataService{
            id1 = beeDataDao.getSid(id);
         }
         return id1;
+    }
+
+    @Override
+    public void putOpenId(Object openId, int targetId) {
+        beeDataDao.putOpenId(openId,targetId);
+    }
+
+    @Override
+    public BeeJobTime getAuditingBeeJobTimeByOpenId(String openId) {
+        return beeDataDao.getAuditingBeeJobTimeByOpenId(openId);
+    }
+
+    @Override
+    public BeeJobTime getAuditingBeeJobTimesByOpenId(String openId, int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.getAuditingBeeJobTimesByOpenId(openId,startIndex,endAmount);
+    }
+
+    @Override
+    public BeeJobTime getBeeJobTimeByOpenId(String openId) {
+        return beeDataDao.getBeeJobTimeByOpenId(openId);
+    }
+
+    @Override
+    public BeeJobTime getBeeJobTimesByOpenId(String openId, int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        return beeDataDao.getBeeJobTimesByOpenId(openId,startIndex,endAmount);
+    }
+
+    @Override
+    public int selectIsGet(int i) {
+        return beeDataDao.selectIsGet(i);
+    }
+
+    @Override
+    public UserMessageList getSignUpJobFairsByJid() {
+        return beeDataDao.getSignUpJobFairsByJid();
+    }
+
+    @Override
+    public UserMessageList getSignUpJobFairByJid(UserMessageList userMessageList,int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        UserMessageList userMessageList1 = new UserMessageList();
+        for(int i = startIndex;i<startIndex+endAmount;i++){
+            if(!(userMessageList.getUserMessageBeans().size()<=i)){
+                if(userMessageList.getUserMessageBeans().get(i) != null){
+                    userMessageList1.setUserMessageBeans(new ArrayList<UserMessage>());
+                    userMessageList1.getUserMessageBeans().add(userMessageList.getUserMessageBeans().get(i));
+                }
+            }
+        }
+        return userMessageList1;
+    }
+
+    @Override
+        public int selectargetId(String openId) {
+            return beeDataDao.selectargetId(openId);
+    }
+
+    @Override
+    public BeeJobTimeDetailed getAuditingBeeJobTimeDetailed(int jid) {
+        return beeDataDao.getAuditingBeeJobTimeDetailed(jid);
+    }
+
+    @Override
+    public int selectOpenId(Object openId) {
+        return beeDataDao.selectOpenId(openId);
+    }
+
+    @Override
+    public Object selectOpenIds(Object openId) {
+        return beeDataDao.selectOpenIds(openId);
+    }
+
+    @Override
+    public List<Integer> getJidByOpenId(String openId) {
+        return beeDataDao.getJidByOpenId(openId);
+    }
+
+    @Override
+    public String getJidsByOpenId(String openId) {
+        return beeDataDao.getJidsByOpenId(openId);
+    }
+
+    @Override
+    public BeeJobTime getJobTimeByOpenId(List<String> jidS) {
+        return beeDataDao.getJobTimeByOpenId(jidS);
+    }
+
+    @Override
+    public BeeJobTime getBeeJobTimesByOpenIds(BeeJobTime beeJobTime,int pageIndex, int pageSize) {
+        int startIndex = 0;
+        if(pageSize == 1){
+            startIndex = 0;
+        }else{
+            startIndex = (pageIndex-1) * pageSize;
+        }
+        int endAmount = pageSize;
+        BeeJobTime beeJobTime1 = new BeeJobTime();
+        for(int i = startIndex;i<startIndex+endAmount;i++){
+            if(!(beeJobTime.getJobTimeBeans().size()<=i)){
+                if(beeJobTime.getJobTimeBeans().get(i) != null){
+                    BeeJobTime.BeeJobTimeBean beeJobTimeBean = beeJobTime.getJobTimeBeans().get(i);
+                    beeJobTime1.getJobTimeBeans().add(beeJobTimeBean);
+                }
+            }
+        }
+        return beeJobTime1;
+    }
+
+    @Override
+    public String getJidsByJid(int i) {
+        return beeDataDao.getJidsByJid(i);
+    }
+
+    @Override
+    public String[] getJids() {
+        return beeDataDao.getJids();
     }
 }

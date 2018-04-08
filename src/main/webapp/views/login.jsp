@@ -81,7 +81,7 @@
         $.ajax({
             url:"/test/job-time",
             type:"POST",
-            data:JSON.stringify({userName:$("#userName").val(),passWord:$("#userPwd").val()}),
+            data:JSON.stringify({"userName":$("#userName").val(),"passWord":$("#userPwd").val()}),
             dataType:"json",
             contentType: "application/json",
             success:function (data) {

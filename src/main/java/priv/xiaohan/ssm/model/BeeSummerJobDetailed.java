@@ -26,6 +26,7 @@ public class BeeSummerJobDetailed {
     private String aValue;
     private String checks;
     private String checked;
+    private String openId;
 
     public String getChecked() {
         return checked;
@@ -179,4 +180,11 @@ public class BeeSummerJobDetailed {
         this.checks = checks;
     }
 
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
 }

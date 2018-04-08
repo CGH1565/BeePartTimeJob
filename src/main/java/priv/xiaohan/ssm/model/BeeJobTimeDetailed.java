@@ -18,6 +18,7 @@ public class BeeJobTimeDetailed {
     private String mobilePhone;
     private String updateDate;
     private String checked;
+    private String openId;
 
 
     public int getjId() {
@@ -130,5 +131,13 @@ public class BeeJobTimeDetailed {
 
     public void setChecked(String checked) {
         this.checked = checked;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 }

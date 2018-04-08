@@ -1,13 +1,14 @@
 package priv.xiaohan.ssm.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by HotSauce on 2017/9/15.
  */
 public class BeeJobTime implements Serializable{
-    public List<BeeJobTimeBean> jobTimeBeans;
+    public List<BeeJobTimeBean> jobTimeBeans = new ArrayList<BeeJobTimeBean>();
 
     public int pages;
     public static class BeeJobTimeBean {
@@ -25,6 +26,8 @@ public class BeeJobTime implements Serializable{
         private String mobilePhone;
         private String updateDate;
         private String checked;
+        private int isGet;
+        private String openId;
 
         public int getjId() {
             return jId;
@@ -136,6 +139,22 @@ public class BeeJobTime implements Serializable{
 
         public void setChecked(String checked) {
             this.checked = checked;
+        }
+
+        public int getIsGet() {
+            return isGet;
+        }
+
+        public void setIsGet(int isGet) {
+            this.isGet = isGet;
+        }
+
+        public String getOpenId() {
+            return openId;
+        }
+
+        public void setOpenId(String openId) {
+            this.openId = openId;
         }
     }
 
