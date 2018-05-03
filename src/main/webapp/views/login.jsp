@@ -41,7 +41,7 @@
 </style>
 <body class="user-select">
 <div class="container">
-    <div class="siteIcon"><img src="<%=basePath%>/images/logo2.jpg" alt="" data-toggle="tooltip" data-placement="top"
+    <div class="siteIcon"><img src="<%=basePath%>/images/user.jpg" alt="" data-toggle="tooltip" data-placement="top"
                                title="欢迎使用蜜蜂兼职系统" draggable="false"/></div>
     <form  autocomplete="off" class="form-signin" name="loginform" onsubmit="return false">
         <h2 class="form-signin-heading">管理员登录</h2>
